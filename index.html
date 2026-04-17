@@ -112,11 +112,11 @@
     .hero-wave { margin-top: 60px; }
 
     /* STATS */
-    .stats-bar { background: var(--terracotta); padding: 20px 0; }
+    .stats-bar { background: #FFDE59; padding: 20px 0; }
     .stats-inner { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
-    .stat-item { text-align: center; color: var(--white); }
+    .stat-item { text-align: center; color: var(--brown); }
     .stat-num { font-family: 'Nunito', sans-serif; font-size: 28px; font-weight: 900; display: block; }
-    .stat-label { font-size: 13px; font-weight: 600; opacity: .85; }
+    .stat-label { font-size: 13px; font-weight: 600; opacity: .75; }
 
     /* ABOUT */
     .about { padding: 100px 0; background: var(--cream); }
@@ -324,7 +324,13 @@
     </div>
     <div class="hero-wave wave">
       <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#D9734A"/>
+        <defs>
+          <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#1E6FA8;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#7EC8E3;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="url(#waveGradient)"/>
       </svg>
     </div>
   </section>
