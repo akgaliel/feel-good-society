@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feel Good Society — Finally a Place to Belong</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Nunito+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --beige:       #FBF5EC;
+      --beige-dark:  #F2E8D5;
+      --beige-deep:  #E8D9C0;
+      --cream:       #FFFAF3;
+      --terracotta:  #D9734A;
+      --terra-light: #F2956F;
+      --terra-pale:  #FAEAE2;
+      --purple:      #7B5EA7;
+      --purple-soft: #9B7FC7;
+      --purple-pale: #EDE5F8;
+      --honey:       #E8A84C;
+      --honey-pale:  #FDF3DC;
+      --sage:        #6A9E7F;
+      --sage-pale:   #E4F2EB;
+      --brown:       #3D2C1E;
+      --brown-mid:   #6B4F38;
+      --brown-light: #A07850;
+      --white:       #FFFFFF;
+      --shadow-sm:   0 2px 12px rgba(61,44,30,0.08);
+      --shadow-md:   0 6px 28px rgba(61,44,30,0.12);
+      --shadow-lg:   0 16px 48px rgba(61,44,30,0.14);
+      --radius-sm:   12px;
+      --radius-md:   20px;
+      --radius-lg:   32px;
+      --radius-pill: 100px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito Sans', sans-serif; background-color: var(--beige); color: var(--brown); line-height: 1.7; font-size: 17px; overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; line-height: 1.25; color: var(--brown); }
+    img { max-width: 100%; display: block; }
+    a { color: var(--terracotta); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .btn { display: inline-block; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 17px; border-radius: var(--radius-pill); padding: 16px 40px; cursor: pointer; border: none; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; text-decoration: none; }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); text-decoration: none; }
+    .btn:active { transform: translateY(0); }
+    .btn-primary { background: #FFDE59; color: var(--brown); }
+    .btn-primary:hover { background: #F0CE3F; color: var(--brown); }
+    .btn-outline { background: transparent; color: var(--terracotta); border: 2.5px solid var(--terracotta); }
+    .btn-outline:hover { background: var(--terra-pale); }
+    .btn-honey { background: var(--honey); color: var(--brown); }
+    .btn-honey:hover { background: #D9943B; }
+    .btn-white { background: var(--white); color: var(--terracotta); }
+    .btn-white:hover { background: var(--cream); color: var(--terracotta); }
+    .btn-ghost { background: transparent; color: var(--white); border: 2.5px solid rgba(255,255,255,.6); }
+    .btn-ghost:hover { background: rgba(255,255,255,.1); }
+    .tag { display: inline-block; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; padding: 6px 18px; border-radius: var(--radius-pill); background: var(--terra-pale); color: var(--terracotta); }
+    .section-title { font-size: clamp(28px, 4vw, 42px); font-weight: 900; margin-bottom: 16px; }
+    .section-sub { font-size: 18px; color: var(--brown-mid); max-width: 560px; }
+    .section-sub.center { text-align: center; margin: 0 auto; }
+    .text-terra  { color: var(--terracotta); }
+    .text-purple { color: var(--purple); }
+    .text-honey  { color: var(--honey); }
+    .wave { width: 100%; overflow: hidden; line-height: 0; }
+    .wave svg { display: block; width: 100%; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(251,245,236,.92); backdrop-filter: blur(12px); border-bottom: 1.5px solid var(--beige-dark); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .nav-logo { font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; color: var(--brown); text-decoration: none; }
+    .nav-logo span { color: var(--terracotta); }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 15px; color: var(--brown-mid); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--terracotta); text-decoration: none; }
+    .nav-cta { margin-left: 8px; padding: 10px 28px; font-size: 15px; }
+
+    /* HERO */
+    .hero { background: linear-gradient(160deg, var(--beige) 0%, var(--beige-dark) 60%, #EDD5B8 100%); padding: 80px 0 0; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(217,115,74,.14) 0%, transparent 70%); top: -100px; right: -100px; border-radius: 50%; pointer-events: none; }
+    .hero::after { content: ''; position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(123,94,167,.12) 0%, transparent 70%); bottom: 0; left: -80px; border-radius: 50%; pointer-events: none; }
+    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+    .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .hero-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--terracotta); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .6; transform: scale(1.3); } }
+    .hero-eyebrow span { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--terracotta); }
+    .hero h1 { font-size: clamp(36px, 5vw, 58px); font-weight: 900; margin-bottom: 20px; }
+    .hero-tagline { font-size: 19px; color: var(--brown-mid); margin-bottom: 36px; max-width: 460px; }
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 48px; }
+    .hero-trust { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--brown-light); font-family: 'Nunito', sans-serif; font-weight: 600; }
+    .hero-trust-dots { display: flex; gap: 4px; }
+    .hero-trust-dots span { width: 28px; height: 28px; border-radius: 50%; border: 2.5px solid var(--beige); background: var(--beige-dark); display: inline-block; }
+    .hero-trust-dots span:nth-child(2) { background: var(--terra-pale); margin-left: -8px; }
+    .hero-trust-dots span:nth-child(3) { background: var(--purple-pale); margin-left: -8px; }
+    .hero-trust-dots span:nth-child(4) { background: var(--honey-pale); margin-left: -8px; }
+    .hero-visual { position: relative; }
+    .hero-card { background: var(--cream); border-radius: var(--radius-lg); padding: 40px; box-shadow: var(--shadow-lg); position: relative; }
+    .hero-card-tag { position: absolute; top: -16px; left: 32px; background: var(--terracotta); color: var(--white); font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 13px; padding: 6px 20px; border-radius: var(--radius-pill); }
+    .event-preview { background: var(--beige); border-radius: var(--radius-md); padding: 28px; margin-bottom: 24px; }
+    .event-preview-label { font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--brown-light); margin-bottom: 8px; }
+    .event-preview-title { font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; color: var(--brown); margin-bottom: 16px; }
+    .event-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .event-chip { background: var(--white); border-radius: var(--radius-pill); padding: 6px 14px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; color: var(--brown-mid); border: 1.5px solid var(--beige-dark); }
+    .price-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .price-tag { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 36px; color: var(--brown); }
+    .price-tag small { font-size: 16px; color: var(--brown-light); font-weight: 600; }
+    .badge-float { position: absolute; background: var(--white); border-radius: var(--radius-md); padding: 12px 18px; box-shadow: var(--shadow-md); font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 14px; color: var(--brown); display: flex; align-items: center; gap: 8px; }
+    .badge-float .icon { font-size: 20px; }
+    .badge-1 { top: 16px; right: -24px; }
+    .badge-2 { bottom: 80px; left: -32px; }
+    .hero-wave { margin-top: 60px; }
+
+    /* STATS */
+    .stats-bar { background: var(--terracotta); padding: 20px 0; }
+    .stats-inner { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+    .stat-item { text-align: center; color: var(--white); }
+    .stat-num { font-family: 'Nunito', sans-serif; font-size: 28px; font-weight: 900; display: block; }
+    .stat-label { font-size: 13px; font-weight: 600; opacity: .85; }
+
+    /* ABOUT */
+    .about { padding: 100px 0; background: var(--cream); }
+    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-img-wrap { position: relative; }
+    .about-img-card { background: var(--beige-dark); border-radius: var(--radius-lg); aspect-ratio: 4/5; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .about-img-placeholder { text-align: center; color: var(--brown-light); font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 15px; }
+    .about-img-icon { font-size: 48px; margin-bottom: 12px; }
+    .about-quote { position: absolute; bottom: -24px; right: -24px; background: var(--white); border-radius: var(--radius-md); padding: 20px 24px; box-shadow: var(--shadow-md); max-width: 260px; }
+    .about-quote p { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; color: var(--brown); line-height: 1.5; margin-bottom: 6px; }
+    .about-quote cite { font-size: 13px; color: var(--brown-light); font-style: normal; font-family: 'Nunito', sans-serif; font-weight: 600; }
+    .about-text .tag { margin-bottom: 20px; display: block; }
+    .about-text h2 { margin-bottom: 16px; }
+    .about-text p { color: var(--brown-mid); margin-bottom: 20px; }
+    .values-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
+    .values-list li { display: flex; align-items: flex-start; gap: 14px; font-size: 16px; color: var(--brown-mid); }
+    .value-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--terra-pale); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+
+    /* HOW IT WORKS */
+    .how { padding: 100px 0; background: var(--beige-dark); }
+    .how-header { text-align: center; margin-bottom: 64px; }
+    .how-header .tag { margin-bottom: 16px; display: inline-block; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; position: relative; }
+    .steps::before { content: ''; position: absolute; top: 36px; left: calc(16.66% + 16px); right: calc(16.66% + 16px); height: 2px; background: var(--beige-deep); z-index: 0; }
+    .step-card { background: var(--cream); border-radius: var(--radius-lg); padding: 40px 32px; text-align: center; box-shadow: var(--shadow-sm); position: relative; z-index: 1; }
+    .step-num { width: 56px; height: 56px; border-radius: 50%; background: var(--terracotta); color: var(--white); font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+    .step-card h3 { font-size: 20px; font-weight: 900; margin-bottom: 12px; }
+    .step-card p { font-size: 15px; color: var(--brown-mid); }
+
+    /* INCLUDED */
+    .included { padding: 100px 0; background: var(--cream); }
+    .included-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .included-text .tag { margin-bottom: 20px; display: block; }
+    .included-text h2 { margin-bottom: 16px; }
+    .included-text > p { color: var(--brown-mid); margin-bottom: 40px; }
+    .include-items { display: flex; flex-direction: column; gap: 24px; }
+    .include-item { display: flex; gap: 20px; align-items: flex-start; }
+    .include-icon { width: 52px; height: 52px; border-radius: var(--radius-sm); background: var(--terra-pale); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .include-item h4 { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+    .include-item p { font-size: 15px; color: var(--brown-mid); margin: 0; }
+    .ticket-card { background: var(--brown); border-radius: var(--radius-lg); padding: 44px 40px; color: var(--white); }
+    .ticket-price { font-family: 'Nunito', sans-serif; font-size: 64px; font-weight: 900; color: var(--honey); line-height: 1; margin-bottom: 4px; }
+    .ticket-price-sub { font-size: 14px; opacity: .65; font-family: 'Nunito', sans-serif; font-weight: 600; margin-bottom: 28px; }
+    .ticket-dashes { border-top: 2px dashed rgba(255,255,255,.15); margin: 24px 0; }
+    .ticket-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .ticket-label { font-size: 15px; opacity: .75; font-family: 'Nunito', sans-serif; font-weight: 600; }
+    .ticket-value { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 15px; color: var(--honey); }
+    .ticket-payment-options { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .ticket-pill { background: rgba(255,255,255,.1); border-radius: var(--radius-pill); padding: 6px 14px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,.85); }
+
+    /* VALUES */
+    .values { padding: 100px 0; background: var(--beige); }
+    .values-header { text-align: center; margin-bottom: 56px; }
+    .values-header .tag { margin-bottom: 16px; display: inline-block; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .value-card { background: var(--cream); border-radius: var(--radius-lg); padding: 40px 32px; box-shadow: var(--shadow-sm); transition: transform .25s ease, box-shadow .25s ease; }
+    .value-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .value-card-icon { width: 56px; height: 56px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 24px; }
+    .icon-terra { background: var(--terra-pale); }
+    .icon-purple { background: var(--purple-pale); }
+    .icon-honey { background: var(--honey-pale); }
+    .value-card h3 { font-size: 22px; font-weight: 900; margin-bottom: 12px; }
+    .value-card p { font-size: 15px; color: var(--brown-mid); line-height: 1.7; }
+
+    /* TESTIMONIALS */
+    .testimonials { padding: 100px 0; background: var(--purple); }
+    .testimonials-header { text-align: center; margin-bottom: 56px; }
+    .testimonials-header .tag { background: rgba(255,255,255,.15); color: var(--white); margin-bottom: 16px; display: inline-block; }
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .testimonial-card { background: rgba(255,255,255,.1); border-radius: var(--radius-lg); padding: 36px 32px; border: 1px solid rgba(255,255,255,.15); }
+    .testimonial-quote { font-family: 'Nunito', sans-serif; font-size: 64px; font-weight: 900; color: rgba(255,255,255,.25); line-height: .8; margin-bottom: 12px; }
+    .testimonial-card p { color: rgba(255,255,255,.9); font-size: 16px; line-height: 1.65; margin-bottom: 20px; font-weight: 500; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 16px; color: var(--white); }
+    .av-1 { background: var(--terracotta); }
+    .av-2 { background: var(--honey); }
+    .av-3 { background: var(--sage); }
+    .testimonial-name { font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 800; color: var(--white); }
+    .testimonial-role { font-size: 13px; color: rgba(255,255,255,.6); }
+
+    /* NDIS */
+    .ndis { padding: 100px 0; background: var(--cream); }
+    .ndis-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .ndis-text .tag { margin-bottom: 20px; display: block; }
+    .ndis-text h2 { margin-bottom: 16px; }
+    .ndis-text p { color: var(--brown-mid); margin-bottom: 28px; }
+    .ndis-steps { display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px; }
+    .ndis-step { display: flex; gap: 16px; align-items: flex-start; }
+    .ndis-step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--terracotta); color: var(--white); font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ndis-step-text h4 { font-size: 16px; font-weight: 800; margin-bottom: 2px; }
+    .ndis-step-text p { font-size: 14px; color: var(--brown-mid); margin-bottom: 0; }
+    .ndis-card { background: var(--honey-pale); border-radius: var(--radius-lg); padding: 40px; border: 2px solid var(--honey); }
+    .ndis-card h3 { font-size: 22px; font-weight: 900; margin-bottom: 20px; color: var(--brown); }
+    .ndis-options { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+    .ndis-option { display: flex; align-items: center; gap: 12px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 16px; }
+    .ndis-check { width: 26px; height: 26px; border-radius: 50%; background: var(--terracotta); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; flex-shrink: 0; }
+
+    /* CTA BANNER */
+    .cta-banner { padding: 100px 0; background: linear-gradient(135deg, #C4603B 0%, var(--terracotta) 45%, #D9875A 100%); position: relative; overflow: hidden; text-align: center; }
+    .cta-banner-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+    .cta-banner h2 { font-size: clamp(32px, 4.5vw, 52px); font-weight: 900; color: var(--white); margin-bottom: 16px; }
+    .cta-banner p { font-size: 19px; color: rgba(255,255,255,.88); margin-bottom: 40px; }
+    .cta-banner-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer { background: var(--brown); color: rgba(255,255,255,.7); padding: 60px 0 32px; }
+    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-logo { font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; color: var(--white); margin-bottom: 12px; }
+    .footer-logo span { color: var(--honey); }
+    .footer-brand p { font-size: 15px; line-height: 1.65; margin-bottom: 20px; max-width: 280px; }
+    .footer-social { display: flex; gap: 12px; }
+    .social-btn { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--white); text-decoration: none; transition: background .2s; }
+    .social-btn:hover { background: rgba(255,255,255,.2); text-decoration: none; }
+    .footer-col h4 { font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 800; color: var(--white); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col li a { color: rgba(255,255,255,.65); font-size: 14px; text-decoration: none; transition: color .2s; }
+    .footer-col li a:hover { color: var(--white); text-decoration: none; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom a { color: rgba(255,255,255,.5); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--white); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .hero-inner, .about-inner, .included-inner, .ndis-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { display: none; }
+      .steps, .values-grid, .testimonial-grid { grid-template-columns: 1fr; }
+      .steps::before { display: none; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .badge-1, .badge-2 { display: none; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .stats-inner { gap: 32px; }
+    }
+
+    /* SCROLL ANIMATION */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">Feel Good <span>Society</span></a>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#included">Events</a></li>
+          <li><a href="#ndis">NDIS</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#tickets" class="btn btn-primary nav-cta">Get Tickets</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-eyebrow">
+            <div class="hero-dot"></div>
+            <span>Monthly Dinner Events</span>
+          </div>
+          <h1>Finally a Place to Make <span class="text-terra">Real Friends</span></h1>
+          <p class="hero-tagline">Without the fear of being different. Feel Good Society is an inclusive community where joy, connection, and belonging come alive — every single month.</p>
+          <div class="hero-ctas">
+            <a href="#tickets" class="btn btn-primary">Secure Your Spot — $89</a>
+            <a href="#about" class="btn btn-outline">Learn More</a>
+          </div>
+          <div class="hero-trust">
+            <div class="hero-trust-dots">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            Hundreds of new friendships made at our events
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <div class="hero-card-tag">Next Event</div>
+            <div class="event-preview">
+              <div class="event-preview-label">Monthly Dinner</div>
+              <div class="event-preview-title">Feel Good Society Dinner</div>
+              <div class="event-chips">
+                <span class="event-chip">🍽️ Full Meal</span>
+                <span class="event-chip">🎵 Entertainment</span>
+                <span class="event-chip">🎲 Games</span>
+                <span class="event-chip">💜 Community</span>
+              </div>
+            </div>
+            <div class="price-row">
+              <div>
+                <div class="price-tag">$89 <small>per person</small></div>
+                <div style="font-size:13px;color:var(--brown-light);font-family:'Nunito',sans-serif;font-weight:600;margin-top:2px;">NDIS · Afterpay · Private Pay</div>
+              </div>
+              <a href="#tickets" class="btn btn-primary" style="padding:12px 28px;font-size:15px;">Book Now</a>
+            </div>
+          </div>
+          <div class="badge-float badge-1"><span class="icon">✨</span> No awkward moments</div>
+          <div class="badge-float badge-2"><span class="icon">💜</span> You belong here</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-wave wave">
+      <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#D9734A"/>
+      </svg>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-inner">
+        <div class="stat-item"><span class="stat-num">100+</span><span class="stat-label">Guests Welcomed</span></div>
+        <div class="stat-item"><span class="stat-num">Monthly</span><span class="stat-label">Recurring Events</span></div>
+        <div class="stat-item"><span class="stat-num">NDIS</span><span class="stat-label">Funding Accepted</span></div>
+        <div class="stat-item"><span class="stat-num">$0</span><span class="stat-label">Awkward Moments</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-img-wrap fade-up">
+          <div class="about-img-card">
+            <div class="about-img-placeholder">
+              <div class="about-img-icon">🍽️</div>
+              <span>Add your event photo here</span>
+            </div>
+          </div>
+          <div class="about-quote">
+            <p>"I was so nervous to come alone. By the end of the night I had three new friends."</p>
+            <cite>— FGS Guest</cite>
+          </div>
+        </div>
+        <div class="about-text fade-up">
+          <span class="tag">Who We Are</span>
+          <h2 class="section-title">A World That Celebrates <span class="text-terra">Every Story</span></h2>
+          <p>Feel Good Society creates inclusive monthly dinner events for people living with disabilities and mental health challenges — and anyone who wants to belong to something real.</p>
+          <p>We believe everyone deserves to feel seen, supported, and celebrated exactly as they are. So we've built a community where that's not just a hope — it's guaranteed.</p>
+          <ul class="values-list">
+            <li><span class="value-icon">🎉</span><span><strong>Celebration</strong> — We honour the strength and spirit of every person</span></li>
+            <li><span class="value-icon">🤝</span><span><strong>Connection</strong> — We unite communities through shared humanity</span></li>
+            <li><span class="value-icon">💪</span><span><strong>Empowerment</strong> — We build confidence and opportunity for all</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how">
+    <div class="container">
+      <div class="how-header fade-up">
+        <span class="tag">How It Works</span>
+        <h2 class="section-title" style="text-align:center;">Simple. Easy. <span class="text-terra">Fun.</span></h2>
+        <p class="section-sub center">We've handled everything so you can walk in and just enjoy yourself.</p>
+      </div>
+      <div class="steps">
+        <div class="step-card fade-up">
+          <div class="step-num">1</div>
+          <h3>Grab Your Ticket</h3>
+          <p>Book online in minutes. Pay with NDIS funding, Afterpay, or privately. We'll help you figure out funding if you need it.</p>
+        </div>
+        <div class="step-card fade-up">
+          <div class="step-num">2</div>
+          <h3>Show Up &amp; Relax</h3>
+          <p>Walk in the door. The venue is sorted, the meal is sorted, the entertainment is sorted. You just have to show up.</p>
+        </div>
+        <div class="step-card fade-up">
+          <div class="step-num">3</div>
+          <h3>Leave With Friends</h3>
+          <p>Connect, laugh, eat great food and go home with real friendships — and something to look forward to next month.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="included" id="included">
+    <div class="container">
+      <div class="included-inner">
+        <div class="included-text fade-up">
+          <span class="tag">What's Included</span>
+          <h2 class="section-title">Everything <span class="text-terra">Sorted</span> for You</h2>
+          <p>You don't have to call ahead, explain your needs to a confused waiter, or worry about whether you'll be welcome. We've thought of everything.</p>
+          <div class="include-items">
+            <div class="include-item">
+              <div class="include-icon">🍽️</div>
+              <div><h4>Delicious Full Meal</h4><p>A proper sit-down dinner — no sad catering trays here</p></div>
+            </div>
+            <div class="include-item">
+              <div class="include-icon">🎵</div>
+              <div><h4>Live Entertainment</h4><p>Music, performances and atmosphere that actually feel alive</p></div>
+            </div>
+            <div class="include-item">
+              <div class="include-icon">🎲</div>
+              <div><h4>Games &amp; Activities</h4><p>Designed to break the ice and spark real conversations</p></div>
+            </div>
+            <div class="include-item">
+              <div class="include-icon">💜</div>
+              <div><h4>A Community That Gets It</h4><p>People who understand, welcome, and celebrate you</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="fade-up" id="tickets">
+          <div class="ticket-card">
+            <div style="font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-bottom:8px;">Monthly Dinner Event</div>
+            <div class="ticket-price">$89</div>
+            <div class="ticket-price-sub">per person · includes everything listed</div>
+            <div class="ticket-dashes"></div>
+            <div class="ticket-row"><span class="ticket-label">Meal</span><span class="ticket-value">✓ Included</span></div>
+            <div class="ticket-row"><span class="ticket-label">Entertainment</span><span class="ticket-value">✓ Included</span></div>
+            <div class="ticket-row"><span class="ticket-label">Games &amp; Activities</span><span class="ticket-value">✓ Included</span></div>
+            <div class="ticket-row"><span class="ticket-label">Community</span><span class="ticket-value">✓ Priceless</span></div>
+            <div class="ticket-dashes"></div>
+            <div style="font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;opacity:.6;margin-bottom:10px;">PAYMENT OPTIONS</div>
+            <div class="ticket-payment-options">
+              <span class="ticket-pill">NDIS Funding</span>
+              <span class="ticket-pill">Private Pay</span>
+              <span class="ticket-pill">Afterpay</span>
+              <span class="ticket-pill">Family Cover</span>
+            </div>
+            <a href="#" class="btn btn-honey" style="width:100%;text-align:center;display:block;">Secure Your Spot Today</a>
+            <p style="text-align:center;font-size:13px;margin-top:12px;opacity:.55;font-family:'Nunito',sans-serif;font-weight:600;">Limited spots available each month</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="container">
+      <div class="values-header fade-up">
+        <span class="tag">Our Values</span>
+        <h2 class="section-title">Built on <span class="text-terra">Three Foundations</span></h2>
+        <p class="section-sub center">Everything we do flows back to these three commitments.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card fade-up">
+          <div class="value-card-icon icon-terra">🎉</div>
+          <h3>Inclusion</h3>
+          <p>Everyone is welcome and supported. Full stop. No asterisks, no conditions, no "but first you need to..." You walk in. You belong.</p>
+        </div>
+        <div class="value-card fade-up">
+          <div class="value-card-icon icon-purple">💜</div>
+          <h3>Respect</h3>
+          <p>We value each person's story and individuality. Your life experience is not a problem to be solved — it's a strength to be celebrated.</p>
+        </div>
+        <div class="value-card fade-up">
+          <div class="value-card-icon icon-honey">🌟</div>
+          <h3>Belonging</h3>
+          <p>We come together as one community where everyone feels at home. Not just tolerated — genuinely, warmly, loudly welcomed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="container">
+      <div class="testimonials-header fade-up">
+        <span class="tag">Real Stories</span>
+        <h2 class="section-title" style="color:white;">What Our Community Says</h2>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-quote">"</div>
+          <p>I was terrified to come the first time. By dessert I was laughing so hard my face hurt. I've been back every month since.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar av-1">S</div>
+            <div><div class="testimonial-name">Sarah</div><div class="testimonial-role">FGS Guest since 2024</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-quote">"</div>
+          <p>As a support worker I'm always looking for meaningful activities. FGS is the one my clients actually look forward to all month.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar av-2">M</div>
+            <div><div class="testimonial-name">Marcus</div><div class="testimonial-role">Support Worker</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-quote">"</div>
+          <p>I have social anxiety and I never thought I'd feel comfortable at an event. The FGS team made sure I wasn't alone for a single second.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar av-3">J</div>
+            <div><div class="testimonial-name">Jamie</div><div class="testimonial-role">NDIS Participant</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ndis" id="ndis">
+    <div class="container">
+      <div class="ndis-inner">
+        <div class="ndis-text fade-up">
+          <span class="tag">NDIS Participants</span>
+          <h2 class="section-title">Your Plan Might <span class="text-terra">Already Cover This</span></h2>
+          <p>Many NDIS participants can use their Social &amp; Community Participation funding for FGS dinners. We make the process as easy as possible — no confusing forms, no stress.</p>
+          <div class="ndis-steps">
+            <div class="ndis-step">
+              <div class="ndis-step-num">1</div>
+              <div class="ndis-step-text"><h4>Check Your Plan</h4><p>Look for Social &amp; Community Participation or Improved Daily Living funding</p></div>
+            </div>
+            <div class="ndis-step">
+              <div class="ndis-step-num">2</div>
+              <div class="ndis-step-text"><h4>Reach Out to Us</h4><p>Message us and we'll help confirm eligibility — no jargon, we promise</p></div>
+            </div>
+            <div class="ndis-step">
+              <div class="ndis-step-num">3</div>
+              <div class="ndis-step-text"><h4>Book &amp; Show Up</h4><p>Use your plan to book and walk through the door ready for a great night</p></div>
+            </div>
+          </div>
+          <a href="#" class="btn btn-primary">Ask Us About NDIS Funding</a>
+        </div>
+        <div class="ndis-card fade-up">
+          <h3>Payment Options — We've Got You Covered</h3>
+          <div class="ndis-options">
+            <div class="ndis-option"><div class="ndis-check">✓</div> NDIS Funding (we help you figure this out)</div>
+            <div class="ndis-option"><div class="ndis-check">✓</div> Pay privately</div>
+            <div class="ndis-option"><div class="ndis-check">✓</div> Afterpay — split into 4 easy payments</div>
+            <div class="ndis-option"><div class="ndis-check">✓</div> Have a family member cover it</div>
+          </div>
+          <p style="font-size:15px;color:var(--brown-mid);line-height:1.6;">Not sure which option is right for you? Send us a message and we'll walk you through it. No question is too small.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div class="cta-banner-inner fade-up">
+      <h2>Your Seat at the Table is Waiting 🍽️</h2>
+      <p>Every smile, every story, every person matters. Join us at the next Feel Good Society dinner and experience what belonging really feels like.</p>
+      <div class="cta-banner-btns">
+        <a href="#tickets" class="btn btn-white">Grab Your Ticket — $89</a>
+        <a href="#ndis" class="btn btn-ghost">Check NDIS Eligibility</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo">Feel Good <span>Society</span></div>
+          <p>Creating inclusive events where joy, connection, and belonging come alive. Everyone is welcome — exactly as they are.</p>
+          <div class="footer-social">
+            <a href="#" class="social-btn" aria-label="Instagram">📷</a>
+            <a href="#" class="social-btn" aria-label="TikTok">♪</a>
+            <a href="#" class="social-btn" aria-label="Facebook">f</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Events</h4>
+          <ul>
+            <li><a href="#">Upcoming Dinners</a></li>
+            <li><a href="#">What's Included</a></li>
+            <li><a href="#">Book a Ticket</a></li>
+            <li><a href="#">Gift a Ticket</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">NDIS Funding</a></li>
+            <li><a href="#">Afterpay</a></li>
+            <li><a href="#">Accessibility</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Values</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Partnerships</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Feel Good Society. All rights reserved.</span>
+        <div style="display:flex;gap:24px;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
