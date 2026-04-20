@@ -1225,8 +1225,9 @@
           <div class="about-img-card" style="background:#000;overflow:hidden;position:relative;">
 
             <!-- TikTok-style video player -->
-            <video id="about-video" loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:32px;display:block;"></video>
-            <source src="fgs-vid-1.mov" type="video/mp4">
+            <video id="about-video" loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:32px;display:block;">
+              <source src="fgs-vid-1.mov" type="video/mp4">
+            </video>
 
             <!-- Tap overlay to play/pause -->
             <div id="vid-tap" style="position:absolute;inset:0;z-index:2;cursor:pointer;border-radius:32px;"></div>
@@ -1707,12 +1708,6 @@
       const progBar   = document.getElementById('vid-progress-bar');
       if (!vid || !tapZone) return;
 
-      /* Add video source programmatically so it loads cleanly */
-      const src = document.createElement('source');
-      src.src  = 'fgs-vid-1.mov';
-      src.type = 'video/mp4';
-      vid.appendChild(src);
-
       let pauseTimer;
 
       /* Show pause icon briefly then fade out */
@@ -1773,7 +1768,7 @@
             progBar.style.width = '0%';
           }
         });
-      }, { threshold: 0.5 });
+      }, { threshold: 0.15 });
 
       vidObserver.observe(vid);
     })();
