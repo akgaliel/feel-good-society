@@ -1222,10 +1222,25 @@
       <div class="about-inner">
 
         <div class="about-img-wrap fade-up">
-          <div class="about-img-card" style="background:#000;overflow:hidden;">
-            <video id="about-video" loop playsinline controls style="width:100%;height:100%;object-fit:cover;border-radius:32px;">
-              <source src="fgs-vid-1.mov" type="video/mp4">
-            </video>
+          <div class="about-img-card" style="background:#000;overflow:hidden;position:relative;">
+
+            <!-- TikTok-style video player -->
+            <video id="about-video" loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:32px;display:block;"></video>
+            <source src="fgs-vid-1.mov" type="video/mp4">
+
+            <!-- Tap overlay to play/pause -->
+            <div id="vid-tap" style="position:absolute;inset:0;z-index:2;cursor:pointer;border-radius:32px;"></div>
+
+            <!-- Pause icon (shows briefly when paused) -->
+            <div id="vid-pause-icon" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);z-index:3;pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;background:rgba(0,0,0,.45);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><rect x="5" y="3" width="4" height="18" rx="1"/><rect x="15" y="3" width="4" height="18" rx="1"/></svg>
+            </div>
+
+            <!-- Progress bar at the bottom -->
+            <div id="vid-progress-wrap" style="position:absolute;bottom:0;left:0;right:0;height:4px;background:rgba(255,255,255,.25);z-index:4;cursor:pointer;border-radius:0 0 32px 32px;">
+              <div id="vid-progress-bar" style="height:100%;background:#fff;width:0%;border-radius:0 0 0 32px;transition:width .1s linear;"></div>
+            </div>
+
           </div>
         </div>
 
@@ -1683,30 +1698,88 @@
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    /* ── Video autoplay on scroll (TikTok-style) ── */
-    const vid = document.getElementById('about-video');
-    if (vid) {
+    /* ── TikTok-style video player ── */
+    (function() {
+      const vid       = document.getElementById('about-video');
+      const tapZone   = document.getElementById('vid-tap');
+      const pauseIcon = document.getElementById('vid-pause-icon');
+      const progWrap  = document.getElementById('vid-progress-wrap');
+      const progBar   = document.getElementById('vid-progress-bar');
+      if (!vid || !tapZone) return;
+
+      /* Add video source programmatically so it loads cleanly */
+      const src = document.createElement('source');
+      src.src  = 'fgs-vid-1.mov';
+      src.type = 'video/mp4';
+      vid.appendChild(src);
+
+      let pauseTimer;
+
+      /* Show pause icon briefly then fade out */
+      function showPauseIcon() {
+        clearTimeout(pauseTimer);
+        pauseIcon.style.opacity = '1';
+        pauseIcon.style.transform = 'translate(-50%,-50%) scale(1)';
+        pauseTimer = setTimeout(() => {
+          pauseIcon.style.opacity = '0';
+          pauseIcon.style.transform = 'translate(-50%,-50%) scale(0)';
+        }, 800);
+      }
+
+      /* Tap to play / pause */
+      tapZone.addEventListener('click', () => {
+        if (vid.paused) {
+          vid.play();
+          pauseIcon.style.opacity = '0';
+          pauseIcon.style.transform = 'translate(-50%,-50%) scale(0)';
+        } else {
+          vid.pause();
+          showPauseIcon();
+        }
+      });
+
+      /* Update progress bar */
+      vid.addEventListener('timeupdate', () => {
+        if (vid.duration) {
+          progBar.style.width = (vid.currentTime / vid.duration * 100) + '%';
+        }
+      });
+
+      /* Scrub by tapping progress bar */
+      progWrap.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const rect = progWrap.getBoundingClientRect();
+        const pos  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        if (vid.duration) vid.currentTime = pos * vid.duration;
+      });
+
+      /* Scroll in → play with sound. Scroll out → pause + reset */
+      function tryPlay() {
+        vid.currentTime = 0;
+        vid.muted = false;
+        vid.play().catch(() => {
+          vid.muted = true;
+          vid.play().catch(() => {});
+          /* Unmute on first tap anywhere on video */
+          const unmute = () => { vid.muted = false; tapZone.removeEventListener('click', unmute, true); };
+          tapZone.addEventListener('click', unmute, { capture: true, once: true });
+        });
+      }
+
       const vidObserver = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
-            vid.currentTime = 0;
-            vid.muted = false;
-            vid.play().catch(() => {
-              /* Autoplay with sound blocked by browser — unmute on first tap */
-              vid.muted = true;
-              vid.play();
-              const unmute = () => { vid.muted = false; vid.removeEventListener('click', unmute); };
-              vid.addEventListener('click', unmute);
-            });
+            tryPlay();
           } else {
             vid.pause();
             vid.currentTime = 0;
+            progBar.style.width = '0%';
           }
         });
       }, { threshold: 0.5 });
 
       vidObserver.observe(vid);
-    }
+    })();
   </script>
 
 </body>
