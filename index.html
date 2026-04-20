@@ -484,7 +484,7 @@
     .value-icon {
       width: 36px; height: 36px;
       border-radius: 50%;
-      background: var(--terra-pale);
+      background: linear-gradient(135deg, #2E6EA6 0%, #7EC8E3 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -586,7 +586,7 @@
 
     /* Ticket Card */
     .ticket-card {
-      background: var(--brown);
+      background: linear-gradient(160deg, #0D2D4E 0%, #133A6B 60%, #1A4F8A 100%);
       border-radius: var(--radius-lg);
       padding: 44px 40px;
       color: var(--white);
@@ -597,7 +597,7 @@
       font-family: 'Nunito', sans-serif;
       font-size: 64px;
       font-weight: 900;
-      color: var(--honey);
+      color: #7EC8E3;
       line-height: 1;
       margin-bottom: 4px;
     }
@@ -620,7 +620,7 @@
       border-bottom: 1px solid rgba(255,255,255,.08);
     }
     .ticket-label { font-size: 15px; opacity: .75; font-family: 'Nunito', sans-serif; font-weight: 600; }
-    .ticket-value { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 15px; color: var(--honey); }
+    .ticket-value { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 15px; color: #7EC8E3; }
     .ticket-payment-options {
       display: flex;
       flex-wrap: wrap;
@@ -957,6 +957,21 @@
     }
 
     /* ── Subtle scroll animation ──────────────────────────────────────────── */
+    /* ── Ticket button animation ─────────────────────────────────────────── */
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 0px 0px rgba(62,174,221,0.5), 0 4px 20px rgba(30,111,168,0.4); }
+      50%       { box-shadow: 0 0 20px 6px rgba(62,174,221,0.6), 0 4px 28px rgba(30,111,168,0.6); }
+    }
+    .btn-animated {
+      background: linear-gradient(135deg, #1E6FA8 0%, #7EC8E3 40%, #ffffff55 50%, #7EC8E3 60%, #1E6FA8 100%);
+      background-size: 200% auto;
+      animation: shimmer 2.5s linear infinite, pulse-glow 2s ease-in-out infinite;
+    }
+
     .fade-up {
       opacity: 0;
       transform: translateY(28px);
@@ -1251,7 +1266,7 @@
          To add more items: copy one include-item block and paste it below the others
 
        WHAT YOU CAN EDIT ON THE RIGHT (TICKET CARD):
-       • Event label → "Monthly Dinner Event"
+       • Event label → "Monthly Social Event"
        • Price → "$89"  ← change the number here to update the price
        • Price subtitle → "per person · includes everything listed"
        • 4 ticket rows (Meal, Entertainment, Games, Community) — edit labels and values
@@ -1303,7 +1318,7 @@
 
         <div class="fade-up" id="tickets">
           <div class="ticket-card">
-            <div style="font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-bottom:8px;">Monthly Dinner Event</div>
+            <div style="font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-bottom:8px;">Monthly Social Event</div>
             <div class="ticket-price">$89</div>
             <div class="ticket-price-sub">per person · includes everything listed</div>
 
@@ -1336,7 +1351,7 @@
               <span class="ticket-pill">Family Cover</span>
             </div>
 
-            <a href="#" class="btn btn-honey" style="width:100%;text-align:center;">Secure Your Spot Today</a>
+            <a href="#" class="btn btn-primary btn-animated" style="width:100%;text-align:center;">Secure Your Spot Today</a>
             <p style="text-align:center;font-size:13px;margin-top:12px;opacity:.55;font-family:'Nunito',sans-serif;font-weight:600;">Limited spots available each month</p>
           </div>
         </div>
