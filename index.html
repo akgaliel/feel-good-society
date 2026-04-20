@@ -571,6 +571,37 @@
       gap: 20px;
       align-items: flex-start;
     }
+    /* ── Include icon animations ─────────────────────────────────────────── */
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      20%       { transform: rotate(-15deg); }
+      40%       { transform: rotate(15deg); }
+      60%       { transform: rotate(-10deg); }
+      80%       { transform: rotate(10deg); }
+    }
+    @keyframes float-music {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%       { transform: translateY(-6px) scale(1.2); }
+    }
+    @keyframes roll-dice {
+      0%   { transform: rotate(0deg) scale(1); }
+      25%  { transform: rotate(90deg) scale(1.15); }
+      50%  { transform: rotate(180deg) scale(1); }
+      75%  { transform: rotate(270deg) scale(1.15); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15%       { transform: scale(1.3); }
+      30%       { transform: scale(1); }
+      45%       { transform: scale(1.2); }
+      60%       { transform: scale(1); }
+    }
+    .icon-plate  { display:inline-block; animation: wiggle 2s ease-in-out infinite; }
+    .icon-music  { display:inline-block; animation: float-music 1.5s ease-in-out infinite; }
+    .icon-dice   { display:inline-block; animation: roll-dice 2.5s linear infinite; }
+    .icon-heart  { display:inline-block; animation: heartbeat 1.5s ease-in-out infinite; }
+
     .include-icon {
       width: 52px; height: 52px;
       border-radius: var(--radius-sm);
@@ -1287,28 +1318,28 @@
 
           <div class="include-items">
             <div class="include-item">
-              <div class="include-icon">🍽️</div>
+              <div class="include-icon"><span class="icon-plate">🍽️</span></div>
               <div>
                 <h4>Delicious Full Meal</h4>
                 <p>A proper sit-down dinner — no sad catering trays here</p>
               </div>
             </div>
             <div class="include-item">
-              <div class="include-icon">🎵</div>
+              <div class="include-icon"><span class="icon-music">🎵</span></div>
               <div>
                 <h4>Live Entertainment</h4>
                 <p>Music, performances and atmosphere that actually feel alive</p>
               </div>
             </div>
             <div class="include-item">
-              <div class="include-icon">🎲</div>
+              <div class="include-icon"><span class="icon-dice">🎲</span></div>
               <div>
                 <h4>Games & Activities</h4>
                 <p>Designed to break the ice and spark real conversations</p>
               </div>
             </div>
             <div class="include-item">
-              <div class="include-icon">💜</div>
+              <div class="include-icon"><span class="icon-heart">💜</span></div>
               <div>
                 <h4>A Community That Gets It</h4>
                 <p>People who understand, welcome, and celebrate you</p>
