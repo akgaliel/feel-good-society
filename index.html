@@ -572,6 +572,23 @@
       align-items: flex-start;
     }
     /* ── Include icon animations ─────────────────────────────────────────── */
+    @keyframes party-pop {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      15%       { transform: rotate(-20deg) scale(1.2); }
+      30%       { transform: rotate(15deg) scale(1.3); }
+      45%       { transform: rotate(-10deg) scale(1.15); }
+      60%       { transform: rotate(8deg) scale(1.1); }
+      75%       { transform: rotate(0deg) scale(1); }
+    }
+    @keyframes star-spin {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25%       { transform: rotate(72deg) scale(1.25); }
+      50%       { transform: rotate(144deg) scale(1); }
+      75%       { transform: rotate(216deg) scale(1.25); }
+    }
+    .icon-party { display:inline-block; animation: party-pop 2s ease-in-out infinite; }
+    .icon-star   { display:inline-block; animation: star-spin 3s ease-in-out infinite; }
+
     @keyframes wiggle {
       0%, 100% { transform: rotate(0deg); }
       20%       { transform: rotate(-15deg); }
@@ -1416,17 +1433,17 @@
 
       <div class="values-grid">
         <div class="value-card fade-up">
-          <div class="value-card-icon icon-terra">🎉</div>
+          <div class="value-card-icon icon-terra"><span class="icon-party">🎉</span></div>
           <h3>Inclusion</h3>
           <p>Everyone is welcome and supported. Full stop. No asterisks, no conditions, no "but first you need to..." You walk in. You belong.</p>
         </div>
         <div class="value-card fade-up">
-          <div class="value-card-icon icon-purple">💜</div>
+          <div class="value-card-icon icon-purple"><span class="icon-heart">💜</span></div>
           <h3>Respect</h3>
           <p>We value each person's story and individuality. Your life experience is not a problem to be solved — it's a strength to be celebrated.</p>
         </div>
         <div class="value-card fade-up">
-          <div class="value-card-icon icon-honey">🌟</div>
+          <div class="value-card-icon icon-honey"><span class="icon-star">🌟</span></div>
           <h3>Belonging</h3>
           <p>We come together as one community where everyone feels at home. Not just tolerated — genuinely, warmly, loudly welcomed.</p>
         </div>
