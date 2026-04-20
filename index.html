@@ -1232,8 +1232,15 @@
             <!-- Tap overlay to play/pause -->
             <div id="vid-tap" style="position:absolute;inset:0;z-index:2;cursor:pointer;border-radius:32px;"></div>
 
-            <!-- Pause icon (shows briefly when paused) -->
-            <div id="vid-pause-icon" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);z-index:3;pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;background:rgba(0,0,0,.45);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;">
+            <!-- Big play button — visible before first play, hidden once playing -->
+            <div id="vid-play-btn" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5;pointer-events:none;transition:opacity .25s,transform .25s;">
+              <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(0,0,0,0.25);">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="#2E6EA6"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+
+            <!-- Pause icon (shows briefly when tapped to pause) -->
+            <div id="vid-pause-icon" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);z-index:4;pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;background:rgba(0,0,0,.45);border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><rect x="5" y="3" width="4" height="18" rx="1"/><rect x="15" y="3" width="4" height="18" rx="1"/></svg>
             </div>
 
@@ -1704,11 +1711,30 @@
       const vid       = document.getElementById('about-video');
       const tapZone   = document.getElementById('vid-tap');
       const pauseIcon = document.getElementById('vid-pause-icon');
+      const playBtn   = document.getElementById('vid-play-btn');
       const progWrap  = document.getElementById('vid-progress-wrap');
       const progBar   = document.getElementById('vid-progress-bar');
       if (!vid || !tapZone) return;
 
       let pauseTimer;
+      let hasStarted = false;
+
+      /* Hide the big play button once video is actually playing */
+      function hidePlayBtn() {
+        if (playBtn) {
+          playBtn.style.opacity = '0';
+          playBtn.style.transform = 'translate(-50%,-50%) scale(0.8)';
+        }
+      }
+
+      /* Show big play button again (e.g. when scrolled away and reset) */
+      function showPlayBtn() {
+        if (playBtn) {
+          playBtn.style.opacity = '1';
+          playBtn.style.transform = 'translate(-50%,-50%) scale(1)';
+        }
+        hasStarted = false;
+      }
 
       /* Show pause icon briefly then fade out */
       function showPauseIcon() {
@@ -1721,10 +1747,17 @@
         }, 800);
       }
 
+      /* Hide play button as soon as video starts playing */
+      vid.addEventListener('play', () => {
+        hasStarted = true;
+        hidePlayBtn();
+      });
+
       /* Tap to play / pause */
       tapZone.addEventListener('click', () => {
         if (vid.paused) {
-          vid.play();
+          vid.muted = false;
+          vid.play().catch(() => {});
           pauseIcon.style.opacity = '0';
           pauseIcon.style.transform = 'translate(-50%,-50%) scale(0)';
         } else {
@@ -1748,18 +1781,23 @@
         if (vid.duration) vid.currentTime = pos * vid.duration;
       });
 
-      /* Scroll in → unmute + restart. Scroll out → mute + pause + reset */
+      /* Scroll in → try to play with sound. Scroll out → reset + show play button */
       const vidObserver = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
             vid.currentTime = 0;
             vid.muted = false;
-            vid.play().catch(() => {});
+            vid.play().catch(() => {
+              /* Browser blocked autoplay — keep play button visible so user can tap */
+              vid.muted = true;
+              vid.play().catch(() => {});
+            });
           } else {
             vid.muted = true;
             vid.pause();
             vid.currentTime = 0;
             progBar.style.width = '0%';
+            showPlayBtn();
           }
         });
       }, { threshold: 0.15 });
