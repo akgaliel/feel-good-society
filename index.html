@@ -1756,14 +1756,11 @@
       /* Scroll in → play with sound. Scroll out → pause + reset */
       function tryPlay() {
         vid.currentTime = 0;
-        vid.muted = false;
-        vid.play().catch(() => {
-          vid.muted = true;
-          vid.play().catch(() => {});
-          /* Unmute on first tap anywhere on video */
-          const unmute = () => { vid.muted = false; tapZone.removeEventListener('click', unmute, true); };
-          tapZone.addEventListener('click', unmute, { capture: true, once: true });
-        });
+        vid.muted = true; /* Start muted so autoplay is guaranteed */
+        vid.play().then(() => {
+          /* Video is running — now unmute. Scrolling = user gesture so this works */
+          vid.muted = false;
+        }).catch(() => {});
       }
 
       const vidObserver = new IntersectionObserver((entries) => {
