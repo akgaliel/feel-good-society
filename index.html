@@ -1225,7 +1225,7 @@
           <div class="about-img-card" style="background:#000;overflow:hidden;position:relative;">
 
             <!-- TikTok-style video player -->
-            <video id="about-video" autoplay muted loop playsinline webkit-playsinline style="width:100%;height:100%;object-fit:cover;border-radius:32px;display:block;">
+            <video id="about-video" loop playsinline style="width:100%;height:100%;object-fit:cover;border-radius:32px;display:block;">
               <source src="fgs-vid-1.mov" type="video/mp4">
             </video>
 
@@ -1706,101 +1706,81 @@
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    /* ── TikTok-style video player ── */
+    /* ── Video player ── */
     (function() {
-      const vid       = document.getElementById('about-video');
-      const tapZone   = document.getElementById('vid-tap');
-      const pauseIcon = document.getElementById('vid-pause-icon');
-      const playBtn   = document.getElementById('vid-play-btn');
-      const progWrap  = document.getElementById('vid-progress-wrap');
-      const progBar   = document.getElementById('vid-progress-bar');
-      if (!vid || !tapZone) return;
+      const vid      = document.getElementById('about-video');
+      const tapZone  = document.getElementById('vid-tap');
+      const playBtn  = document.getElementById('vid-play-btn');
+      const pauseIcon= document.getElementById('vid-pause-icon');
+      const progWrap = document.getElementById('vid-progress-wrap');
+      const progBar  = document.getElementById('vid-progress-bar');
+      if (!vid) return;
 
       let pauseTimer;
-      let hasStarted = false;
 
-      /* Hide the big play button once video is actually playing */
       function hidePlayBtn() {
-        if (playBtn) {
-          playBtn.style.opacity = '0';
-          playBtn.style.transform = 'translate(-50%,-50%) scale(0.8)';
-        }
+        playBtn.style.opacity = '0';
+        playBtn.style.pointerEvents = 'none';
+        playBtn.style.transform = 'translate(-50%,-50%) scale(0.7)';
       }
-
-      /* Show big play button again (e.g. when scrolled away and reset) */
       function showPlayBtn() {
-        if (playBtn) {
-          playBtn.style.opacity = '1';
-          playBtn.style.transform = 'translate(-50%,-50%) scale(1)';
-        }
-        hasStarted = false;
+        playBtn.style.opacity = '1';
+        playBtn.style.pointerEvents = 'auto';
+        playBtn.style.transform = 'translate(-50%,-50%) scale(1)';
       }
-
-      /* Show pause icon briefly then fade out */
-      function showPauseIcon() {
+      function showPauseFlash() {
         clearTimeout(pauseTimer);
         pauseIcon.style.opacity = '1';
         pauseIcon.style.transform = 'translate(-50%,-50%) scale(1)';
         pauseTimer = setTimeout(() => {
           pauseIcon.style.opacity = '0';
           pauseIcon.style.transform = 'translate(-50%,-50%) scale(0)';
-        }, 800);
+        }, 700);
       }
 
-      /* Hide play button as soon as video starts playing */
-      vid.addEventListener('play', () => {
-        hasStarted = true;
-        hidePlayBtn();
+      /* Big play button — first tap starts video and hides button */
+      playBtn.addEventListener('click', () => {
+        vid.muted = false;
+        vid.play().then(() => { hidePlayBtn(); }).catch(() => {
+          vid.muted = true;
+          vid.play().then(() => { hidePlayBtn(); }).catch(() => {});
+        });
       });
 
-      /* Tap to play / pause */
+      /* Tap anywhere on video while playing = pause/resume */
       tapZone.addEventListener('click', () => {
-        if (vid.paused) {
+        if (!vid.paused) {
+          vid.pause();
+          showPauseFlash();
+        } else if (playBtn.style.opacity === '0' || playBtn.style.opacity === '') {
           vid.muted = false;
           vid.play().catch(() => {});
           pauseIcon.style.opacity = '0';
-          pauseIcon.style.transform = 'translate(-50%,-50%) scale(0)';
-        } else {
-          vid.pause();
-          showPauseIcon();
         }
       });
 
-      /* Update progress bar */
+      /* Progress bar */
       vid.addEventListener('timeupdate', () => {
-        if (vid.duration) {
-          progBar.style.width = (vid.currentTime / vid.duration * 100) + '%';
-        }
+        if (vid.duration) progBar.style.width = (vid.currentTime / vid.duration * 100) + '%';
       });
-
-      /* Scrub by tapping progress bar */
       progWrap.addEventListener('click', (e) => {
         e.stopPropagation();
         const rect = progWrap.getBoundingClientRect();
-        const pos  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
         if (vid.duration) vid.currentTime = pos * vid.duration;
       });
 
-      /* Scroll in → try to play with sound. Scroll out → reset + show play button */
+      /* Scroll away = pause + reset to show play button again */
       const vidObserver = new IntersectionObserver((entries) => {
         entries.forEach(e => {
-          if (e.isIntersecting) {
-            vid.currentTime = 0;
-            vid.muted = false;
-            vid.play().catch(() => {
-              /* Browser blocked autoplay — keep play button visible so user can tap */
-              vid.muted = true;
-              vid.play().catch(() => {});
-            });
-          } else {
-            vid.muted = true;
+          if (!e.isIntersecting) {
             vid.pause();
             vid.currentTime = 0;
             progBar.style.width = '0%';
             showPlayBtn();
           }
         });
-      }, { threshold: 0.15 });
+      }, { threshold: 0.1 });
 
       vidObserver.observe(vid);
     })();
