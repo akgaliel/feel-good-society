@@ -190,6 +190,7 @@
       transition: color .2s;
     }
     .nav-links a:hover { color: var(--terracotta); text-decoration: none; }
+    .nav-links a.nav-active { color: var(--terracotta); font-weight: 900; }
     .nav-cta { margin-left: 8px; padding: 10px 28px; font-size: 15px; color: var(--white) !important; }
 
     /* ═══════════════════════════════════════════════════════════════════════
@@ -1048,13 +1049,14 @@
   <nav>
     <div class="container">
       <div class="nav-inner">
-        <a href="#" class="nav-logo">Feel Good Society</a>
+        <a href="index.html" class="nav-logo">Feel Good Society</a>
         <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#included">Events</a></li>
-          <li><a href="#ndis">NDIS</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#tickets" class="btn btn-primary nav-cta btn-animated">Get Tickets</a></li>
+          <li><a href="index.html" class="nav-active" aria-current="page">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="ndis.html">NDIS</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="book.html" class="btn btn-primary nav-cta btn-animated">Book</a></li>
         </ul>
       </div>
     </div>
@@ -1099,8 +1101,8 @@
           </p>
 
           <div class="hero-ctas">
-            <a href="#tickets" class="btn btn-primary btn-animated">Secure Your Spot $89</a>
-            <a href="#about" class="btn btn-outline">Learn More</a>
+            <a href="book.html" class="btn btn-primary btn-animated">Secure Your Spot $89</a>
+            <a href="about.html" class="btn btn-outline">Learn More</a>
           </div>
 
           <div class="hero-trust">
@@ -1134,7 +1136,7 @@
                 <div class="price-tag">$89 <small>per person</small></div>
                 <div style="font-size:13px;color:var(--brown-light);font-family:'Nunito',sans-serif;font-weight:600;margin-top:2px;">NDIS · Afterpay · Private Pay</div>
               </div>
-              <a href="#tickets" class="btn btn-primary" style="padding:12px 28px;font-size:15px;">Book Now</a>
+              <a href="book.html" class="btn btn-primary" style="padding:12px 28px;font-size:15px;">Book Now</a>
             </div>
           </div>
 
@@ -1420,7 +1422,7 @@
               <span class="ticket-pill">Family Cover</span>
             </div>
 
-            <a href="#" class="btn btn-primary btn-animated" style="width:100%;text-align:center;">Secure Your Spot Today</a>
+            <a href="book.html" class="btn btn-primary btn-animated" style="width:100%;text-align:center;">Secure Your Spot Today</a>
             <p style="text-align:center;font-size:13px;margin-top:12px;opacity:.55;font-family:'Nunito',sans-serif;font-weight:600;">Limited spots available each month</p>
           </div>
         </div>
@@ -1546,7 +1548,7 @@
             </div>
           </div>
 
-          <a href="#" class="btn btn-primary">Ask Us About NDIS Funding</a>
+          <a href="contact.html" class="btn btn-primary">Ask Us About NDIS Funding</a>
         </div>
 
         <div class="ndis-card fade-up">
@@ -1594,8 +1596,8 @@
       <h2>Your Spot at the Event Won't Last<br>Grab It Now</h2>
       <p>Every smile, every story, every person matters. Join us at the next Feel Good Society dinner and experience what belonging really feels like.</p>
       <div class="cta-banner-btns">
-        <a href="#tickets" class="btn btn-white">Grab Your Ticket $89</a>
-        <a href="#ndis" class="btn btn-ghost">Check NDIS Eligibility</a>
+        <a href="book.html" class="btn btn-white">Grab Your Ticket $89</a>
+        <a href="ndis.html" class="btn btn-ghost">Check NDIS Eligibility</a>
       </div>
     </div>
   </section>
@@ -1647,30 +1649,28 @@
         <div class="footer-col">
           <h4>Events</h4>
           <ul>
-            <li><a href="#">Upcoming Events</a></li>
-            <li><a href="#">What's Included</a></li>
-            <li><a href="#">Book a Ticket</a></li>
-            <li><a href="#">Gift a Ticket</a></li>
+            <li><a href="events.html">Upcoming Events</a></li>
+            <li><a href="index.html#included">What's Included</a></li>
+            <li><a href="book.html">Book a Ticket</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4>Support</h4>
           <ul>
-            <li><a href="#">NDIS Funding</a></li>
-            <li><a href="#">Afterpay</a></li>
-            <li><a href="#">Accessibility</a></li>
-            <li><a href="#">FAQ</a></li>
+            <li><a href="ndis.html">NDIS Funding</a></li>
+            <li><a href="ndis.html">Afterpay</a></li>
+            <li><a href="contact.html">Accessibility</a></li>
+            <li><a href="contact.html">FAQ</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4>Company</h4>
           <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Our Values</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Partnerships</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="about.html#values">Our Values</a></li>
+            <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
 
