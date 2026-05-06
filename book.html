@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book a Seat — Feel Good Society</title>
+  <title>Book a Ticket — Feel Good Society</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Nunito+Sans:wght@400;500;600&family=Permanent+Marker&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
@@ -72,14 +72,14 @@
     .nav-cta { margin-left: 8px; padding: 10px 28px; font-size: 15px; color: var(--white) !important; }
 
     /* PAGE HERO */
-    .page-hero { background: linear-gradient(160deg, var(--beige) 0%, var(--beige-dark) 60%, #EDD5B8 100%); padding: 72px 0 68px; text-align: center; position: relative; overflow: hidden; }
+    .page-hero { background: linear-gradient(160deg, var(--beige) 0%, var(--beige-dark) 60%, #EDD5B8 100%); padding: 40px 0 36px; text-align: center; position: relative; overflow: hidden; }
     .page-hero::before { content: ''; position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(46,110,166,.1) 0%, transparent 70%); top: -80px; right: -60px; border-radius: 50%; pointer-events: none; }
     .page-hero .tag { margin-bottom: 20px; display: block; }
     .page-hero h1 { font-size: clamp(28px, 4.5vw, 52px); font-weight: 900; max-width: 680px; margin: 0 auto 20px; }
     .page-hero-tagline { font-size: 19px; color: var(--brown-mid); max-width: 480px; margin: 0 auto; }
 
     /* TICKET SECTION */
-    .ticket-section { padding: 80px 0; background: var(--cream); }
+    .ticket-section { padding: 36px 0 28px; background: var(--cream); }
     .ticket-section-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
     .ticket-intro .tag { margin-bottom: 20px; display: block; }
     .ticket-intro h2 { margin-bottom: 16px; }
@@ -88,7 +88,7 @@
     .ticket-card {
       background: linear-gradient(160deg, #0D2D4E 0%, #133A6B 60%, #1A4F8A 100%);
       border-radius: var(--radius-lg);
-      padding: 44px 40px;
+      padding: 28px 28px;
       color: var(--white);
     }
     .ticket-label-sm { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .6; margin-bottom: 8px; }
@@ -120,7 +120,7 @@
     .payment-card p { font-size: 15px; color: var(--brown-mid); margin: 0; }
 
     /* BOOKING FORM */
-    .booking-section { padding: 80px 0; background: var(--cream); }
+    .booking-section { padding: 24px 0 60px; background: var(--cream); }
     .booking-inner { max-width: 720px; margin: 0 auto; }
     .booking-inner .tag { margin-bottom: 20px; display: block; }
     .booking-inner h2 { margin-bottom: 8px; }
@@ -185,6 +185,57 @@
 
     .support-worker-note { margin-top: 8px; font-size: 14px; color: var(--brown-light); font-family: 'Nunito', sans-serif; font-weight: 600; }
 
+    /* Expandable support-worker details (shown only when "Yes" is selected) */
+    .sw-details {
+      margin-top: 18px;
+      padding: 22px 24px;
+      background: var(--cream);
+      border: 1.5px solid var(--beige-dark);
+      border-radius: var(--radius-md);
+      display: none;
+    }
+    .sw-details.show { display: block; animation: sw-slide .25s ease-out; }
+    @keyframes sw-slide { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .sw-details legend, .sw-details .sw-heading {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--brown);
+      margin-bottom: 14px;
+    }
+    .sw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    /* MOBILE NAV TOGGLE */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      padding: 0;
+      margin-left: auto;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2.5px;
+      background: var(--brown);
+      border-radius: 2px;
+      transition: transform .25s ease, opacity .25s ease;
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    @media (max-width: 640px) { .sw-grid { grid-template-columns: 1fr; } }
+    .sw-details .form-group { margin-bottom: 0; }
+    .sw-details label { font-size: 14px; }
+
     .form-submit { margin-top: 40px; }
     .form-submit .btn { width: 100%; text-align: center; font-size: 18px; padding: 18px 40px; }
 
@@ -220,7 +271,35 @@
       .footer-inner { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
-      .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(251,245,236,.98);
+        backdrop-filter: blur(12px);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 24px 20px;
+        border-bottom: 1.5px solid var(--beige-dark);
+        box-shadow: 0 8px 24px rgba(0,0,0,.06);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; list-style: none; }
+      .nav-links a {
+        display: block;
+        padding: 14px 4px;
+        border-bottom: 1px solid rgba(0,0,0,.06);
+        font-size: 16px;
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-links .nav-cta {
+        margin: 12px 0 0 !important;
+        text-align: center;
+      }
       .footer-inner { grid-template-columns: 1fr; }
       .yes-no-group { flex-direction: column; }
     }
@@ -233,7 +312,10 @@
     <div class="container">
       <div class="nav-inner">
         <a href="index.html" class="nav-logo">Feel Good Society</a>
-        <ul class="nav-links">
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span></span>
+        </button>
+                <ul class="nav-links" id="primary-nav">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="events.html">Events</a></li>
@@ -249,9 +331,8 @@
   <section class="page-hero">
     <div class="container">
       <div class="fade-up">
-        <span class="tag">Book Your Seat</span>
-        <h1>Lock in your spot for <span class="text-terra">the next dinner.</span></h1>
-        <p class="page-hero-tagline">Takes two minutes. No awkward phone calls. We'll confirm by email within an hour.</p>
+        <span class="tag">Book Your Ticket</span>
+        <h1>Book your ticket for the next <span class="text-terra">Feel Good event</span></h1>
       </div>
     </div>
   </section>
@@ -259,14 +340,7 @@
   <!-- 2. TICKET CARD -->
   <section class="ticket-section">
     <div class="container">
-      <div class="ticket-section-inner">
-
-        <div class="ticket-intro fade-up">
-          <span class="tag">What You Get</span>
-          <h2 class="section-title">Everything <span class="text-terra">in the price</span></h2>
-          <p>$79 covers the full night. No hidden extras, no bar tab surprises. Everything listed is included.</p>
-          <p>Support workers attend free. NDIS funding accepted. Afterpay available.</p>
-        </div>
+      <div class="ticket-section-inner" style="grid-template-columns:1fr;max-width:560px;margin:0 auto;">
 
         <div class="ticket-card fade-up">
           <div class="ticket-label-sm">Monthly Social Dinner</div>
@@ -301,44 +375,12 @@
     </div>
   </section>
 
-  <!-- 3. PAYMENT OPTIONS -->
-  <section class="payment-section">
-    <div class="container">
-      <div class="payment-header fade-up">
-        <span class="tag">How to Pay</span>
-        <h2 class="section-title">Pick what <span class="text-terra">works for you</span></h2>
-      </div>
-      <div class="payment-grid fade-up">
-        <a href="ndis.html" class="payment-card">
-          <div class="payment-card-icon" aria-hidden="true">🏥</div>
-          <h3>NDIS Funding</h3>
-          <p>Use your Social &amp; Community Participation budget. We'll help you work it out — see our NDIS page.</p>
-        </a>
-        <div class="payment-card">
-          <div class="payment-card-icon" aria-hidden="true">💳</div>
-          <h3>Pay Privately</h3>
-          <p>Card payment, quick and easy. Secure checkout at the next step.</p>
-        </div>
-        <div class="payment-card">
-          <div class="payment-card-icon" aria-hidden="true">📅</div>
-          <h3>Afterpay</h3>
-          <p>Split the $79 into 4 fortnightly payments. Available at checkout.</p>
-        </div>
-        <div class="payment-card">
-          <div class="payment-card-icon" aria-hidden="true">👨‍👩‍👧</div>
-          <h3>Family Member</h3>
-          <p>Someone else can cover it for you. No awkward bit — just share this page with them.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. BOOKING FORM -->
+  <!-- 3. BOOKING FORM -->
   <section class="booking-section" id="booking-form">
     <div class="container">
       <div class="booking-inner fade-up">
         <span class="tag">The Form</span>
-        <h2 class="section-title">Reserve <span class="text-terra">my seat</span></h2>
+        <h2 class="section-title">Reserve <span class="text-terra">my ticket</span></h2>
         <p>All fields are required unless marked optional. We'll never share your details with anyone.</p>
 
         <!-- ══════════════════════════════════════════════════════
@@ -386,24 +428,20 @@
                   NDIS Funding
                 </label>
                 <label class="radio-option">
-                  <input type="radio" name="payment" value="private" />
-                  Pay privately (card)
+                  <input type="radio" name="payment" value="card" />
+                  Credit or debit card
                 </label>
                 <label class="radio-option">
                   <input type="radio" name="payment" value="afterpay" />
                   Afterpay
-                </label>
-                <label class="radio-option">
-                  <input type="radio" name="payment" value="family" />
-                  Family member paying
                 </label>
               </div>
             </fieldset>
           </div>
 
           <div class="form-group">
-            <label for="field-access">Any access needs we should know about? <span class="label-hint">(optional)</span></label>
-            <textarea id="field-access" name="access" placeholder="e.g. wheelchair access, dietary requirements, sensory needs — whatever helps us look after you"></textarea>
+            <label for="field-access">Any additional needs we should know about? <span class="label-hint">(optional)</span></label>
+            <textarea id="field-access" name="access" placeholder="e.g. wheelchair access, dietary requirements, sensory needs — whatever helps us give you the best experience"></textarea>
           </div>
 
           <div class="form-group">
@@ -411,23 +449,110 @@
               <legend style="font-family:'Nunito',sans-serif;font-weight:800;font-size:16px;color:var(--brown);margin-bottom:10px;">Bringing a support worker?</legend>
               <div class="yes-no-group">
                 <label class="radio-option">
-                  <input type="radio" name="support_worker" value="yes" />
+                  <input type="radio" name="support_worker" value="yes" id="sw-yes" />
                   Yes
                 </label>
                 <label class="radio-option">
-                  <input type="radio" name="support_worker" value="no" />
+                  <input type="radio" name="support_worker" value="no" id="sw-no" />
                   No
                 </label>
               </div>
               <p class="support-worker-note">✓ Support workers attend at no extra cost — we just need to know for seating.</p>
+
+              <!-- Support worker details — shown when "Yes" is selected -->
+              <div class="sw-details" id="sw-details" aria-hidden="true">
+                <div class="sw-heading">Support worker details</div>
+                <div class="sw-grid">
+                  <div class="form-group">
+                    <label for="sw-name">Name</label>
+                    <input type="text" id="sw-name" name="sw_name" autocomplete="name" placeholder="Their full name" />
+                  </div>
+                  <div class="form-group">
+                    <label for="sw-email">Email</label>
+                    <input type="email" id="sw-email" name="sw_email" autocomplete="email" placeholder="name@example.com" />
+                  </div>
+                  <div class="form-group">
+                    <label for="sw-phone">Phone</label>
+                    <input type="tel" id="sw-phone" name="sw_phone" autocomplete="tel" placeholder="04xx xxx xxx" />
+                  </div>
+                  <div class="form-group">
+                    <label for="sw-org">Organisation</label>
+                    <input type="text" id="sw-org" name="sw_organisation" placeholder="e.g. Beyond ok" />
+                  </div>
+                </div>
+              </div>
             </fieldset>
           </div>
 
           <div class="form-submit">
-            <button type="submit" class="btn btn-primary btn-animated">Reserve my seat</button>
+            <button type="submit" class="btn btn-primary btn-animated">Book Your Ticket</button>
           </div>
 
         </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. PAYMENT OPTIONS -->
+  <section class="payment-section">
+    <div class="container">
+      <div class="payment-header fade-up">
+        <span class="tag">How to Pay</span>
+        <h2 class="section-title">Pick what <span class="text-terra">works for you</span></h2>
+      </div>
+      <div class="payment-grid fade-up">
+        <a href="ndis.html" class="payment-card">
+          <div class="payment-card-icon" aria-hidden="true">
+            <!-- NDIS logo: purple rounded shape with white "ndis" wordmark + green dot -->
+            <svg width="120" height="76" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 4 L132 4 Q156 4 156 28 L156 56 Q156 80 134 88 L120 92 Q106 96 92 96 L16 96 Q4 96 4 84 L4 16 Q4 4 16 4 Z" fill="#6F2C8E"/>
+              <text x="78" y="74" font-family="'Nunito', 'Helvetica Neue', Arial, sans-serif" font-size="58" font-weight="900" text-anchor="middle" fill="#FFFFFF" letter-spacing="-3">ndis</text>
+              <circle cx="91" cy="26" r="6.5" fill="#9CCB3B"/>
+            </svg>
+          </div>
+          <h3>NDIS Funding</h3>
+          <p>Use your Social &amp; Community Participation budget. We'll help you work it out — see our NDIS page.</p>
+        </a>
+        <div class="payment-card">
+          <div class="payment-card-icon" aria-hidden="true" style="display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;font-size:0;line-height:0;">
+            <!-- Mastercard -->
+            <svg width="44" height="28" viewBox="0 0 44 28" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard">
+              <circle cx="16" cy="14" r="12" fill="#EB001B"/>
+              <circle cx="28" cy="14" r="12" fill="#F79E1B"/>
+              <path d="M22 4 a12 12 0 0 1 0 20 a12 12 0 0 1 0 -20 z" fill="#FF5F00"/>
+            </svg>
+            <!-- Visa -->
+            <svg width="60" height="22" viewBox="0 0 60 22" xmlns="http://www.w3.org/2000/svg" aria-label="Visa">
+              <text x="30" y="18" font-family="'Helvetica Neue', Arial Black, Arial, sans-serif" font-size="20" font-weight="900" font-style="italic" text-anchor="middle" fill="#1A1F71" letter-spacing="-0.5">VISA</text>
+            </svg>
+            <!-- Google Pay -->
+            <svg width="62" height="24" viewBox="0 0 62 24" xmlns="http://www.w3.org/2000/svg" aria-label="Google Pay">
+              <path d="M11.4 11 L11.4 13.2 L14.4 13.2 C14.1 14.4 13 15.3 11.4 15.3 C9.6 15.3 8 13.7 8 12 C8 10.2 9.6 8.7 11.4 8.7 C12.2 8.7 13 9 13.6 9.5 L15.1 8 C14.1 7.1 12.8 6.5 11.4 6.5 C8.4 6.5 6 8.9 6 12 C6 15 8.4 17.5 11.4 17.5 C14.6 17.5 16.6 15.3 16.6 12.2 C16.6 11.6 16.5 11.3 16.5 11 L11.4 11 Z" fill="#4285F4"/>
+              <path d="M11.4 8.7 C12.2 8.7 13 9 13.6 9.5 L15.1 8 C14.1 7.1 12.8 6.5 11.4 6.5 L11.4 8.7 Z" fill="#EA4335"/>
+              <path d="M11.4 15.3 C13 15.3 14.1 14.4 14.4 13.2 L11.4 13.2 L11.4 15.3 Z" fill="#34A853"/>
+              <path d="M14.4 13.2 C14.5 12.9 14.6 12.5 14.6 12 L11.4 12 L11.4 13.2 L14.4 13.2 Z" fill="#FBBC04"/>
+              <text x="20" y="17" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#5F6368">Pay</text>
+            </svg>
+            <!-- Apple Pay -->
+            <svg width="62" height="24" viewBox="0 0 62 24" xmlns="http://www.w3.org/2000/svg" aria-label="Apple Pay">
+              <path d="M13.6 8.1 C13.0 8.8 12.0 9.4 11.0 9.3 C10.9 8.3 11.4 7.3 12.0 6.6 C12.6 6.0 13.7 5.5 14.5 5.5 C14.6 6.5 14.2 7.4 13.6 8.1 Z M14.5 9.5 C13.0 9.4 11.7 10.3 11.0 10.3 C10.3 10.3 9.2 9.5 8.0 9.5 C6.4 9.6 4.9 10.5 4.1 12.0 C2.5 14.8 3.7 19.0 5.3 21.3 C6.0 22.4 7.0 23.6 8.2 23.6 C9.4 23.5 9.9 22.8 11.3 22.8 C12.7 22.8 13.1 23.6 14.4 23.5 C15.7 23.5 16.5 22.4 17.3 21.3 C18.2 20.0 18.5 18.7 18.5 18.6 C18.5 18.6 16.0 17.7 16.0 14.9 C16.0 12.5 17.9 11.4 18.0 11.3 C16.9 9.7 15.2 9.5 14.5 9.5 Z" fill="#000" transform="scale(0.7) translate(2,-2)"/>
+              <text x="20" y="17" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#000">Pay</text>
+            </svg>
+          </div>
+          <h3>Credit or Debit Card</h3>
+          <p>Card payment, quick and easy. Secure checkout at the next step. We accept Mastercard, Visa, Google Pay, and Apple Pay.</p>
+        </div>
+        <div class="payment-card">
+          <div class="payment-card-icon" aria-hidden="true">
+            <!-- Afterpay logo: mint pill, lowercase wordmark -->
+            <svg width="140" height="60" viewBox="0 0 140 60" xmlns="http://www.w3.org/2000/svg">
+              <rect width="140" height="60" rx="30" fill="#B2FCE4"/>
+              <text x="70" y="40" font-family="'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="900" text-anchor="middle" fill="#0A0A0A" letter-spacing="-1.2">afterpay</text>
+            </svg>
+          </div>
+          <h3>Afterpay</h3>
+          <p>Split the $79 into 4 fortnightly payments. Available at checkout.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -463,7 +588,7 @@
             <a href="https://www.instagram.com/feelgood.societyco/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </a>
-            <a href="#" class="social-btn" aria-label="TikTok">
+            <a href="https://www.tiktok.com/@feelgood.societyco" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
             </a>
             <a href="https://www.facebook.com/profile.php?id=61572367542911" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
@@ -513,6 +638,34 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
+    /* Support-worker conditional details: show fields when "Yes" is chosen */
+    (function() {
+      const swYes = document.getElementById('sw-yes');
+      const swNo  = document.getElementById('sw-no');
+      const panel = document.getElementById('sw-details');
+      if (!swYes || !swNo || !panel) return;
+
+      const swInputs = panel.querySelectorAll('input');
+
+      function update() {
+        const show = swYes.checked;
+        panel.classList.toggle('show', show);
+        panel.setAttribute('aria-hidden', show ? 'false' : 'true');
+        // Make the support-worker fields required only when shown
+        swInputs.forEach(inp => {
+          if (show && (inp.id === 'sw-name' || inp.id === 'sw-email')) {
+            inp.required = true;
+          } else {
+            inp.required = false;
+          }
+        });
+      }
+
+      swYes.addEventListener('change', update);
+      swNo.addEventListener('change', update);
+      update();
+    })();
+
     /* ══════════════════════════════════════════════════════════════
        FORM SUBMISSION — Currently shows a success message.
        To wire up a real backend:
@@ -530,7 +683,25 @@
           <p style="color:var(--brown-mid);font-size:17px;">We'll send your confirmation email within the hour. Can't wait to see you there.</p>
         </div>`;
     });
-  </script>
+  
+    /* Mobile nav toggle */
+    (function() {
+      const btn = document.querySelector('.nav-toggle');
+      const list = document.getElementById('primary-nav');
+      if (!btn || !list) return;
+      btn.addEventListener('click', () => {
+        const open = list.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', String(open));
+      });
+      // Close menu after clicking a link
+      list.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        list.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }));
+    })();
+</script>
 
 </body>
 </html>

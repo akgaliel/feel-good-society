@@ -159,7 +159,7 @@
     .faq-answer { padding: 0 24px 20px; font-size: 16px; color: var(--brown-mid); line-height: 1.7; }
 
     /* NEWSLETTER */
-    .newsletter { padding: 80px 0; background: var(--purple); }
+    .newsletter { padding: 80px 0; background: linear-gradient(135deg, #133A6B 0%, #2E6EA6 50%, #3AAEDD 100%); }
     .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
     .newsletter .tag { background: rgba(255,255,255,.15); color: var(--white); margin-bottom: 20px; display: inline-block; }
     .newsletter h2 { font-size: clamp(24px, 3.5vw, 38px); font-weight: 900; color: var(--white); margin-bottom: 12px; }
@@ -180,8 +180,8 @@
     }
     .newsletter-form input::placeholder { color: rgba(255,255,255,.6); }
     .newsletter-form input:focus { background: rgba(255,255,255,.25); }
-    .btn-newsletter { background: var(--white); color: var(--purple); padding: 14px 32px; }
-    .btn-newsletter:hover { background: var(--cream); color: var(--purple); }
+    .btn-newsletter { background: var(--white); color: #1E6FA8; padding: 14px 32px; }
+    .btn-newsletter:hover { background: var(--cream); color: #1E6FA8; }
 
     /* FOOTER */
     footer { background: #F5F4F0; color: rgba(30,30,30,.7); padding: 60px 0 32px; }
@@ -200,6 +200,34 @@
 
     .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
     .fade-up.visible { opacity: 1; transform: none; }
+    /* MOBILE NAV TOGGLE */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      padding: 0;
+      margin-left: auto;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2.5px;
+      background: var(--brown);
+      border-radius: 2px;
+      transition: transform .25s ease, opacity .25s ease;
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
 
     @media (max-width: 960px) {
       .contact-inner { grid-template-columns: 1fr; }
@@ -207,7 +235,35 @@
       .footer-inner { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
-      .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(251,245,236,.98);
+        backdrop-filter: blur(12px);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 24px 20px;
+        border-bottom: 1.5px solid var(--beige-dark);
+        box-shadow: 0 8px 24px rgba(0,0,0,.06);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; list-style: none; }
+      .nav-links a {
+        display: block;
+        padding: 14px 4px;
+        border-bottom: 1px solid rgba(0,0,0,.06);
+        font-size: 16px;
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-links .nav-cta {
+        margin: 12px 0 0 !important;
+        text-align: center;
+      }
       .footer-inner { grid-template-columns: 1fr; }
       .newsletter-form { flex-direction: column; }
       .newsletter-form input[type="email"] { min-width: unset; width: 100%; }
@@ -221,7 +277,10 @@
     <div class="container">
       <div class="nav-inner">
         <a href="index.html" class="nav-logo">Feel Good Society</a>
-        <ul class="nav-links">
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span></span>
+        </button>
+                <ul class="nav-links" id="primary-nav">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="events.html">Events</a></li>
@@ -238,8 +297,8 @@
     <div class="container">
       <div class="fade-up">
         <span class="tag">Get in Touch</span>
-        <h1>We're real humans and <span class="text-terra">we reply fast.</span></h1>
-        <p class="page-hero-tagline">No bots, no contact forms that disappear into the void. We read every message.</p>
+        <h1>Got a question, idea, or just want to <span class="text-terra">say hello?</span></h1>
+        <p class="page-hero-tagline">Send us a message and our team will get back to you.</p>
       </div>
     </div>
   </section>
@@ -307,7 +366,7 @@
               <div>
                 <div class="contact-detail-label">Email</div>
                 <!-- Replace with real email -->
-                <div class="contact-detail-value"><a href="mailto:hello@feelgoodsociety.com.au">hello@feelgoodsociety.com.au</a></div>
+                <div class="contact-detail-value"><a href="mailto:events@feelgoodsociety.com.au">events@feelgoodsociety.com.au</a></div>
               </div>
             </div>
 
@@ -319,7 +378,7 @@
               <div>
                 <div class="contact-detail-label">Prefer a chat?</div>
                 <!-- Replace with real phone number -->
-                <div class="contact-detail-value">[04xx xxx xxx]</div>
+                <div class="contact-detail-value"><a href="tel:+61473498360">0473 498 360</a></div>
               </div>
             </div>
 
@@ -330,9 +389,10 @@
               <a href="https://www.facebook.com/profile.php?id=61572367542911" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
               </a>
+              <a href="https://www.tiktok.com/@feelgood.societyco" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.45a8.16 8.16 0 0 0 4.77 1.52V6.55a4.85 4.85 0 0 1-1.84.14z"/></svg>
+              </a>
             </div>
-
-            <p class="contact-response-note">💬 We reply within one working day — usually much faster.</p>
           </div>
         </div>
 
@@ -353,56 +413,56 @@
           <summary>Who are the dinners for?</summary>
           <div class="faq-answer">
             <!-- Replace with real answer -->
-            [Our dinners are for people living with disabilities, mental health challenges, and anyone who wants to meet good people in a relaxed, welcoming environment. You don't need a diagnosis or a referral — just a desire to have a good night out.]
+            Our dinners are for people living with disabilities, mental health challenges, and anyone who wants to meet good people in a relaxed, welcoming environment. You don't need a diagnosis or a referral — just a desire to have a good night out.
           </div>
         </details>
 
         <details>
           <summary>Do I have to come alone?</summary>
           <div class="faq-answer">
-            [Not at all — you're welcome to bring a friend, carer, or support worker. Support workers attend free of charge. Just let us know when you book so we can sort seating.]
+            Not at all — you're welcome to bring a friend, carer, or support worker. Support workers attend free of charge. Just let us know when you book so we can sort seating.
           </div>
         </details>
 
         <details>
           <summary>What if I get overwhelmed during the night?</summary>
           <div class="faq-answer">
-            [That's completely okay. We have a quiet space available and friendly staff who understand. There's no pressure to stay in the main room the whole time — come and go as you need.]
+            That's completely okay. We have a quiet space available and friendly staff who understand. There's no pressure to stay in the main room the whole time — come and go as you need.
           </div>
         </details>
 
         <details>
           <summary>What's the food like? Can you cater for dietary needs?</summary>
           <div class="faq-answer">
-            [We serve a full sit-down dinner with options for most dietary requirements including vegetarian, vegan, gluten-free, and common allergies. Just note your needs when you book and we'll make sure you're sorted.]
+            We serve a full sit-down dinner with options for most dietary requirements including vegetarian, vegan, gluten-free, and common allergies. Just note your needs when you book and we'll make sure you're sorted.
           </div>
         </details>
 
         <details>
           <summary>Where do you run events?</summary>
           <div class="faq-answer">
-            [Currently in [your city/region — add here]. We choose accessible venues with good parking, public transport access, and wheelchair-friendly facilities. The address is confirmed when you book.]
+            Currently in [your city/region — add here]. We choose accessible venues with good parking, public transport access, and wheelchair-friendly facilities. The address is confirmed when you book.
           </div>
         </details>
 
         <details>
           <summary>How often do you run dinners?</summary>
           <div class="faq-answer">
-            [Once a month — same vibe, fresh night. We announce the next date and venue a few weeks in advance. Sign up to the newsletter below to be first to know.]
+            Once a month — same vibe, fresh night. We announce the next date and venue a few weeks in advance. Sign up to the newsletter below to be first to know.
           </div>
         </details>
 
         <details>
           <summary>Can I volunteer or get involved?</summary>
           <div class="faq-answer">
-            [Yes — we love that you asked. Drop us a message using the form above and select "Something else". Tell us a bit about yourself and what you'd like to contribute. We'll get back to you.]
+            Yes — we love that you asked. Drop us a message using the form above and select "Something else". Tell us a bit about yourself and what you'd like to contribute. We'll get back to you.
           </div>
         </details>
 
         <details>
           <summary>I'm a support coordinator. How does invoicing work?</summary>
           <div class="faq-answer">
-            [We're NDIS-friendly and can issue invoices to your plan manager or support coordinator. Head to our <a href="ndis.html">NDIS page</a> for full details, or get in touch and we'll walk you through it.]
+            We're NDIS-friendly and can issue invoices to your plan manager or support coordinator. Head to our <a href="ndis.html">NDIS page</a> for full details, or get in touch and we'll walk you through it.
           </div>
         </details>
 
@@ -414,9 +474,8 @@
   <section class="newsletter">
     <div class="container">
       <div class="newsletter-inner fade-up">
-        <span class="tag">Stay in the Loop</span>
-        <h2>Be first to know when we drop the next dinner.</h2>
-        <p>No spam. Just one email when spots open up.</p>
+        <span class="tag">Be a Part of Feel Good Society Newsletters</span>
+        <h2>Be first to know when we have the next event in your area.</h2>
 
         <!-- ══ Wire up this form to your email provider (Mailchimp, etc.) ══ -->
         <form class="newsletter-form" id="newsletter-form-el" novalidate>
@@ -439,7 +498,7 @@
             <a href="https://www.instagram.com/feelgood.societyco/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </a>
-            <a href="#" class="social-btn" aria-label="TikTok">
+            <a href="https://www.tiktok.com/@feelgood.societyco" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
             </a>
             <a href="https://www.facebook.com/profile.php?id=61572367542911" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
@@ -500,7 +559,25 @@
       e.preventDefault();
       this.innerHTML = '<p style="color:rgba(255,255,255,.9);font-family:\'Nunito\',sans-serif;font-weight:700;font-size:17px;">✓ You\'re on the list. We\'ll be in touch!</p>';
     });
-  </script>
+  
+    /* Mobile nav toggle */
+    (function() {
+      const btn = document.querySelector('.nav-toggle');
+      const list = document.getElementById('primary-nav');
+      if (!btn || !list) return;
+      btn.addEventListener('click', () => {
+        const open = list.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', String(open));
+      });
+      // Close menu after clicking a link
+      list.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        list.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }));
+    })();
+</script>
 
   <!-- Screen-reader only utility -->
   <style>.sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0; }</style>

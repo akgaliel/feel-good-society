@@ -115,16 +115,60 @@
       font-weight: 700;
       opacity: .85;
     }
-    .event-price-badge {
-      background: var(--honey);
-      color: var(--brown);
-      border-radius: var(--radius-md);
-      padding: 16px 28px;
-      text-align: center;
-      flex-shrink: 0;
+    @keyframes price-box-breathe {
+      0%, 100% {
+        transform: scale(1);
+        border-color: rgba(255,255,255,0.7);
+        background: rgba(255,255,255,0.12);
+        box-shadow:
+          0 0 0 rgba(255,255,255,0),
+          0 0 24px rgba(126,200,227,0.4),
+          inset 0 0 18px rgba(255,255,255,0.18);
+      }
+      50% {
+        transform: scale(1.06);
+        border-color: rgba(255,255,255,1);
+        background: rgba(255,255,255,0.22);
+        box-shadow:
+          0 0 0 6px rgba(255,255,255,0.18),
+          0 0 60px 10px rgba(126,200,227,0.95),
+          inset 0 0 32px rgba(255,255,255,0.4);
+      }
     }
-    .event-price-num { font-family: 'Nunito', sans-serif; font-size: 36px; font-weight: 900; line-height: 1; }
-    .event-price-label { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; }
+    @keyframes price-shine {
+      0%   { background-position: -150% center; }
+      100% { background-position: 250% center; }
+    }
+    @keyframes price-num-glow {
+      0%, 100% { filter: drop-shadow(0 0 0 rgba(255,255,255,0)) drop-shadow(0 0 6px rgba(126,200,227,0.5)); }
+      50%      { filter: drop-shadow(0 0 14px rgba(255,255,255,0.85)) drop-shadow(0 0 26px rgba(126,200,227,0.9)); }
+    }
+    .event-price-badge {
+      color: #7EC8E3;
+      padding: 22px 32px;
+      text-align: right;
+      flex-shrink: 0;
+      border: 2.5px solid rgba(255,255,255,0.7);
+      border-radius: var(--radius-md);
+      transform-origin: center;
+      backdrop-filter: blur(2px);
+      animation: price-box-breathe 2.4s ease-in-out infinite;
+    }
+    .event-price-num {
+      font-family: 'Nunito', sans-serif;
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 4px;
+      display: inline-block;
+      background: linear-gradient(110deg, #B6E2F2 0%, #B6E2F2 35%, #ffffff 50%, #B6E2F2 65%, #B6E2F2 100%);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: price-shine 2.4s linear infinite, price-num-glow 2.4s ease-in-out infinite;
+    }
+    .event-price-label { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; color: #fff; opacity: .9; letter-spacing: .02em; }
 
     .event-card-body { padding: 40px 48px; }
     .event-venue {
@@ -154,7 +198,19 @@
     .expect-header .tag { margin-bottom: 16px; display: block; }
     .expect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
     .expect-card { background: var(--cream); border-radius: var(--radius-lg); padding: 36px 28px; box-shadow: var(--shadow-sm); text-align: center; }
-    .expect-icon { font-size: 36px; margin-bottom: 16px; }
+    .expect-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #3AAEDD 0%, #2E6EA6 55%, #133A6B 100%);
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(30,111,168,0.25);
+    }
+    .expect-icon svg { width: 32px; height: 32px; display: block; }
     .expect-card h3 { font-size: 18px; font-weight: 900; margin-bottom: 10px; }
     .expect-card p { font-size: 15px; color: var(--brown-mid); }
 
@@ -231,6 +287,34 @@
     .fade-up.visible { opacity: 1; transform: none; }
 
     /* RESPONSIVE */
+    /* MOBILE NAV TOGGLE */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      padding: 0;
+      margin-left: auto;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2.5px;
+      background: var(--brown);
+      border-radius: 2px;
+      transition: transform .25s ease, opacity .25s ease;
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
     @media (max-width: 960px) {
       .event-includes-list { grid-template-columns: 1fr; }
       .expect-grid { grid-template-columns: 1fr; }
@@ -241,7 +325,35 @@
       .access-card { padding: 36px 28px; }
     }
     @media (max-width: 640px) {
-      .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(251,245,236,.98);
+        backdrop-filter: blur(12px);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 24px 20px;
+        border-bottom: 1.5px solid var(--beige-dark);
+        box-shadow: 0 8px 24px rgba(0,0,0,.06);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; list-style: none; }
+      .nav-links a {
+        display: block;
+        padding: 14px 4px;
+        border-bottom: 1px solid rgba(0,0,0,.06);
+        font-size: 16px;
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-links .nav-cta {
+        margin: 12px 0 0 !important;
+        text-align: center;
+      }
       .footer-inner { grid-template-columns: 1fr; }
       .photo-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -254,7 +366,10 @@
     <div class="container">
       <div class="nav-inner">
         <a href="index.html" class="nav-logo">Feel Good Society</a>
-        <ul class="nav-links">
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span></span>
+        </button>
+                <ul class="nav-links" id="primary-nav">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="events.html" class="nav-active" aria-current="page">Events</a></li>
@@ -271,8 +386,8 @@
     <div class="container">
       <div class="fade-up">
         <span class="tag">What's Coming Up</span>
-        <h1>Your next <span class="text-terra">good night out.</span></h1>
-        <p class="page-hero-tagline">A monthly dinner for people who want real food, real company, and zero awkward moments.</p>
+        <h1>The community you've <span class="text-terra">been looking for.</span></h1>
+        <p class="page-hero-tagline">Monthly events where diversity is celebrated, accessibility is standard, and belonging is guaranteed.</p>
       </div>
     </div>
   </section>
@@ -292,8 +407,8 @@
         <div class="event-card-header">
           <div class="event-date-block">
             <!-- Replace date text below -->
-            <div class="event-date-main">[DATE]</div>
-            <div class="event-date-sub">[Day] · Doors open [Time]</div>
+            <div class="event-date-main">TBC</div>
+            <div class="event-date-sub">Day · Doors open TBC</div>
           </div>
           <div class="event-price-badge" aria-label="Ticket price">
             <div class="event-price-num">$79</div>
@@ -306,7 +421,7 @@
           <!-- Replace venue details below -->
           <div class="event-venue">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            [Venue Name] · [Suburb]
+            Venue TBC · Suburb TBC
           </div>
 
           <!-- Replace vibe description below -->
@@ -315,8 +430,9 @@
           <div class="event-includes">
             <h4>What's included</h4>
             <ul class="event-includes-list">
-              <li>Delicious full sit-down meal</li>
-              <li>Live entertainment all night</li>
+              <li>Full meal and non-alcoholic drink</li>
+              <li>Live entertainment</li>
+              <li>Games and activities</li>
               <li>Warm, welcoming crew on the door</li>
               <li>Fully accessible venue</li>
             </ul>
@@ -324,7 +440,7 @@
 
           <div class="event-cta">
             <!-- Update the href to your real booking URL -->
-            <a href="book.html" class="btn btn-primary btn-animated">Book your seat — $79</a>
+            <a href="book.html" class="btn btn-primary btn-animated">Book Your Ticket — $79</a>
             <p class="event-spots">⚡ Limited spots — fills up every month</p>
           </div>
 
@@ -342,17 +458,36 @@
       </div>
       <div class="expect-grid">
         <div class="expect-card fade-up">
-          <div class="expect-icon" aria-hidden="true">🪑</div>
+          <div class="expect-icon" aria-hidden="true">
+            <!-- Star: a curated, quality experience -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.1 8.6 22 9.5 17 14.4 18.2 21.3 12 18 5.8 21.3 7 14.4 2 9.5 8.9 8.6 12 2"/>
+            </svg>
+          </div>
           <h3>Walk in, sit down, relax</h3>
           <p>The logistics are sorted. Venue, seating, food, the lot. You just have to show up.</p>
         </div>
         <div class="expect-card fade-up">
-          <div class="expect-icon" aria-hidden="true">🍽️</div>
+          <div class="expect-icon" aria-hidden="true">
+            <!-- Two people: real food, real people -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="8" r="3.2"/>
+              <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+              <circle cx="17" cy="9" r="2.6"/>
+              <path d="M15 14.5c1-.4 1.9-.5 2-.5 2.8 0 5 2.2 5 5"/>
+            </svg>
+          </div>
           <h3>Real food, real people</h3>
           <p>A proper sit-down meal, no awkward small talk — just good energy and people who get it.</p>
         </div>
         <div class="expect-card fade-up">
-          <div class="expect-icon" aria-hidden="true">💜</div>
+          <div class="expect-icon" aria-hidden="true">
+            <!-- Trend up: every event gets better -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 17 9 11 13 15 21 7"/>
+              <polyline points="14 7 21 7 21 14"/>
+            </svg>
+          </div>
           <h3>Stay as long as it feels good</h3>
           <p>No pressure, no scripts, no expectations. Come and go as you need to.</p>
         </div>
@@ -379,50 +514,13 @@
     </div>
   </section>
 
-  <!-- 5. PAST EVENTS PHOTO STRIP -->
-  <section class="past-events">
-    <div class="container">
-      <div class="past-events-header fade-up">
-        <span class="tag">Past Dinners</span>
-        <h2 class="section-title">A Taste of <span class="text-terra">What Was</span></h2>
-        <p style="color:var(--brown-mid);max-width:460px;margin:0 auto;text-align:center;font-size:17px;">A few snapshots from previous nights. Every month is different. Every night is good.</p>
-      </div>
-
-      <!-- ══════════════════════════════════════════════════════
-           PHOTO GRID — Replace each photo-slot div with:
-           <div class="photo-slot">
-             <img src="your-photo.jpg" alt="Guests enjoying the FGS dinner" />
-           </div>
-           Add as many slots as you like — the grid handles it.
-      ══════════════════════════════════════════════════════ -->
-      <div class="photo-grid fade-up">
-        <div class="photo-slot">
-          <div class="photo-slot-icon" aria-hidden="true">📷</div>
-          <span>Add event photo here</span>
-        </div>
-        <div class="photo-slot">
-          <div class="photo-slot-icon" aria-hidden="true">📷</div>
-          <span>Add event photo here</span>
-        </div>
-        <div class="photo-slot">
-          <div class="photo-slot-icon" aria-hidden="true">📷</div>
-          <span>Add event photo here</span>
-        </div>
-        <div class="photo-slot">
-          <div class="photo-slot-icon" aria-hidden="true">📷</div>
-          <span>Add event photo here</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- 6. CTA STRIP -->
   <section class="events-cta">
     <div class="container">
       <div class="events-cta-inner fade-up">
-        <h2>Seats fill up fast. Lock yours in.</h2>
+        <h2>Tickets fill up fast. Lock yours in.</h2>
         <p>Takes two minutes. No awkward phone calls.</p>
-        <a href="book.html" class="btn btn-white-solid">Book Your Seat</a>
+        <a href="book.html" class="btn btn-white-solid">Book Your Ticket</a>
       </div>
     </div>
   </section>
@@ -438,7 +536,7 @@
             <a href="https://www.instagram.com/feelgood.societyco/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </a>
-            <a href="#" class="social-btn" aria-label="TikTok">
+            <a href="https://www.tiktok.com/@feelgood.societyco" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
             </a>
             <a href="https://www.facebook.com/profile.php?id=61572367542911" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
@@ -487,7 +585,25 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.12 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  </script>
+  
+    /* Mobile nav toggle */
+    (function() {
+      const btn = document.querySelector('.nav-toggle');
+      const list = document.getElementById('primary-nav');
+      if (!btn || !list) return;
+      btn.addEventListener('click', () => {
+        const open = list.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', String(open));
+      });
+      // Close menu after clicking a link
+      list.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        list.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }));
+    })();
+</script>
 
 </body>
 </html>

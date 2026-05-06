@@ -434,13 +434,69 @@
     .fade-up.visible { opacity: 1; transform: none; }
 
     /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+    /* MOBILE NAV TOGGLE */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      padding: 0;
+      margin-left: auto;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2.5px;
+      background: var(--brown);
+      border-radius: 2px;
+      transition: transform .25s ease, opacity .25s ease;
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
     @media (max-width: 960px) {
       .story-inner { grid-template-columns: 1fr; gap: 48px; }
       .vmv-grid, .pillars-grid { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
-      .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(251,245,236,.98);
+        backdrop-filter: blur(12px);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 24px 20px;
+        border-bottom: 1.5px solid var(--beige-dark);
+        box-shadow: 0 8px 24px rgba(0,0,0,.06);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; list-style: none; }
+      .nav-links a {
+        display: block;
+        padding: 14px 4px;
+        border-bottom: 1px solid rgba(0,0,0,.06);
+        font-size: 16px;
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-links .nav-cta {
+        margin: 12px 0 0 !important;
+        text-align: center;
+      }
       .footer-inner { grid-template-columns: 1fr; }
       .founder-card { padding: 36px 24px; }
     }
@@ -455,7 +511,10 @@
     <div class="container">
       <div class="nav-inner">
         <a href="index.html" class="nav-logo">Feel Good Society</a>
-        <ul class="nav-links">
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span></span>
+        </button>
+                <ul class="nav-links" id="primary-nav">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html" class="nav-active" aria-current="page">About</a></li>
           <li><a href="events.html">Events</a></li>
@@ -475,7 +534,6 @@
       <div class="fade-up">
         <span class="tag">Our Story</span>
         <h1>A world that uplifts every ability<br>and <span class="text-terra">celebrates every story.</span></h1>
-        <p class="page-hero-tagline">We started Feel Good Society because great nights out shouldn't be out of reach for anyone.</p>
       </div>
     </div>
   </section>
@@ -485,52 +543,33 @@
   ══════════════════════════════════════════════════════════════ -->
   <section class="story">
     <div class="container">
-      <div class="story-inner">
+      <div class="story-inner" style="align-items:start;">
 
         <div class="story-text fade-up">
           <span class="tag">The Gap We Saw</span>
           <h2 class="section-title">Why We <span class="text-terra">Started</span></h2>
-          <p>Feel Good Society was born from a simple observation: so many people living with disabilities or mental health challenges were spending their weekends at home — not because they wanted to, but because the social world wasn't built for them. Too loud, too unpredictable, too much pressure to explain yourself before you'd even sat down.</p>
-          <p>We believed that was worth changing. So we did. Monthly dinner events, designed from the ground up to feel safe, fun, and genuinely welcoming to everyone who walks through the door.</p>
+          <p>Feel Good Society was born from a simple observation: so many people living with disabilities or mental health challenges were staying home not because they wanted to, but because the social world didn't make them feel like they belong.</p>
+          <p>We believed that was worth changing, so we did. Now we create inclusive social events, designed from the ground up to feel safe, fun, and genuinely welcoming for everyone who walks through the door — any day of the week.</p>
         </div>
 
-        <div class="story-text fade-up">
-          <span class="tag">Why Dinners</span>
-          <h2 class="section-title">More Than <span class="text-terra">a Meal</span></h2>
-          <p>Dinners work because food puts everyone on equal footing. There's no pressure to stand around awkwardly — you sit, you eat, you talk. We add live entertainment and activities because great conversation shouldn't feel forced. Games break the ice. Music lifts the room.</p>
-          <p>By the time dessert arrives, people who came in as strangers are already planning to come back together next month. That's the feeling we're chasing, every single event.</p>
+        <!-- ════════════════════════════════════════════════════════
+             FOUNDER NOTE — sits beside the story on desktop,
+             stacks below it on mobile (story-inner is 1fr below 1024px)
+             TO UPDATE: replace the 👤 emoji with a photo, e.g.:
+             <img src="founder-photo.jpg" alt="Lamyah Galiel"
+                  style="width:96px;height:96px;border-radius:50%;object-fit:cover;" />
+        ════════════════════════════════════════════════════════ -->
+        <div class="founder-card fade-up" style="max-width:none;margin:0;">
+
+          <div class="founder-avatar" aria-hidden="true">👤</div>
+
+          <div class="founder-name">Lamyah Galiel</div>
+          <div class="founder-role">Founder, Feel Good Society</div>
+
+          <p>I started Feel Good Society after years working alongside people living with disability and mental health challenges, seeing just how isolating life can feel when the world isn't designed with you in mind. Feel Good Society is built from both professional experience and a deeply held belief that everyone deserves moments where they feel safe, accepted, and completely themselves.</p>
+
         </div>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════════════════
-       3. VISION · MISSION · VALUES
-  ══════════════════════════════════════════════════════════════ -->
-  <section class="vmv" id="values">
-    <div class="container">
-      <div class="vmv-header fade-up">
-        <span class="tag">What Drives Us</span>
-        <h2 class="section-title">Vision, Mission <span class="text-terra">&amp; Values</span></h2>
-      </div>
-
-      <div class="vmv-grid">
-        <div class="vmv-card fade-up">
-          <div class="vmv-icon vmv-icon-terra" aria-hidden="true">🌍</div>
-          <h3>Vision</h3>
-          <p>A world that uplifts every ability and celebrates every story.</p>
-        </div>
-        <div class="vmv-card fade-up">
-          <div class="vmv-icon vmv-icon-purple" aria-hidden="true">🎯</div>
-          <h3>Mission</h3>
-          <p>Inclusive experiences that bring people together through music, food, games, and shared joy.</p>
-        </div>
-        <div class="vmv-card fade-up">
-          <div class="vmv-icon vmv-icon-honey" aria-hidden="true">💛</div>
-          <h3>Values</h3>
-          <p><strong>Inclusion.</strong> Everyone is welcome, full stop.<br><strong>Respect.</strong> Every story matters here.<br><strong>Belonging.</strong> Not just tolerated. Loudly welcomed.</p>
-        </div>
       </div>
     </div>
   </section>
@@ -538,8 +577,12 @@
   <!-- ══════════════════════════════════════════════════════════════
        4. THREE-PILLAR GRIDS
   ══════════════════════════════════════════════════════════════ -->
-  <section class="pillars">
+  <section class="pillars" id="values">
     <div class="container">
+
+      <div class="fade-up" style="margin-bottom:32px;">
+        <span class="tag" style="display:block;width:100%;text-align:center;border-radius:999px;padding:10px 24px;font-size:14px;letter-spacing:.18em;box-sizing:border-box;">What Drives Us</span>
+      </div>
 
       <div class="pillars-block fade-up">
         <p class="pillars-label">Living Our Vision</p>
@@ -587,35 +630,6 @@
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════
-       5. FOUNDER NOTE
-       ──────────────────────────────────────────────────────────────
-       TO UPDATE THIS SECTION:
-       • Replace the 👤 emoji div with:
-         <img src="founder-photo.jpg" alt="[Founder Name]"
-              style="width:96px;height:96px;border-radius:50%;object-fit:cover;" />
-       • Replace "[Founder Name]" with the actual name
-       • Replace "Founder, Feel Good Society" with the real title
-       • Replace the paragraph text with a personal note from the founder
-  ══════════════════════════════════════════════════════════════ -->
-  <section class="founder">
-    <div class="container">
-      <div class="founder-card fade-up">
-
-        <!-- Replace this div with a real photo when ready -->
-        <div class="founder-avatar" aria-hidden="true">👤</div>
-
-        <!-- Replace with real name -->
-        <div class="founder-name">[Founder Name]</div>
-        <div class="founder-role">Founder, Feel Good Society</div>
-
-        <!-- Replace with a personal note from the founder -->
-        <p>I started Feel Good Society because I saw firsthand how isolating life can become when the social world isn't built for you. Everyone deserves a night where they feel completely, unconditionally at home. That's what we're here to give you. Every single month, without exception.</p>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════════════════
        6. CTA STRIP
   ══════════════════════════════════════════════════════════════ -->
   <section class="about-cta">
@@ -642,7 +656,7 @@
             <a href="https://www.instagram.com/feelgood.societyco/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </a>
-            <a href="#" class="social-btn" aria-label="TikTok">
+            <a href="https://www.tiktok.com/@feelgood.societyco" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
             </a>
             <a href="https://www.facebook.com/profile.php?id=61572367542911" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
@@ -701,7 +715,25 @@
       });
     }, { threshold: 0.12 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  </script>
+  
+    /* Mobile nav toggle */
+    (function() {
+      const btn = document.querySelector('.nav-toggle');
+      const list = document.getElementById('primary-nav');
+      if (!btn || !list) return;
+      btn.addEventListener('click', () => {
+        const open = list.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', String(open));
+      });
+      // Close menu after clicking a link
+      list.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        list.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }));
+    })();
+</script>
 
 </body>
 </html>

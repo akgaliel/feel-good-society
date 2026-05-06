@@ -207,6 +207,34 @@
     .fade-up.visible { opacity: 1; transform: none; }
 
     /* RESPONSIVE */
+    /* MOBILE NAV TOGGLE */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      padding: 0;
+      margin-left: auto;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2.5px;
+      background: var(--brown);
+      border-radius: 2px;
+      transition: transform .25s ease, opacity .25s ease;
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
     @media (max-width: 960px) {
       .ndis-intro-inner { grid-template-columns: 1fr; gap: 48px; }
       .steps-grid { grid-template-columns: 1fr; }
@@ -215,7 +243,35 @@
       .footer-inner { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
-      .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(251,245,236,.98);
+        backdrop-filter: blur(12px);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 24px 20px;
+        border-bottom: 1.5px solid var(--beige-dark);
+        box-shadow: 0 8px 24px rgba(0,0,0,.06);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; list-style: none; }
+      .nav-links a {
+        display: block;
+        padding: 14px 4px;
+        border-bottom: 1px solid rgba(0,0,0,.06);
+        font-size: 16px;
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-links .nav-cta {
+        margin: 12px 0 0 !important;
+        text-align: center;
+      }
       .footer-inner { grid-template-columns: 1fr; }
     }
   </style>
@@ -227,7 +283,10 @@
     <div class="container">
       <div class="nav-inner">
         <a href="index.html" class="nav-logo">Feel Good Society</a>
-        <ul class="nav-links">
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span></span>
+        </button>
+                <ul class="nav-links" id="primary-nav">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="events.html">Events</a></li>
@@ -341,7 +400,7 @@
   </section>
 
   <!-- 4. ALL PAYMENT OPTIONS -->
-  <section class="payment-section">
+  <section class="payment-section" id="payment">
     <div class="container">
       <div class="payment-header fade-up">
         <span class="tag">Payment Options</span>
@@ -350,24 +409,71 @@
       </div>
       <div class="payment-grid">
         <div class="payment-card fade-up">
-          <div class="payment-card-icon">🏛️</div>
+          <div class="payment-card-icon" aria-hidden="true">
+            <!-- NDIS logo: purple rounded shape with the signature "tail" on the bottom-right,
+                 white "ndis" wordmark, and the green dot above the i. -->
+            <svg width="120" height="76" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
+              <!-- Distinct NDIS body shape — rounded rect with elongated bottom-right curve -->
+              <path d="M16 4
+                       L132 4
+                       Q156 4 156 28
+                       L156 56
+                       Q156 80 134 88
+                       L120 92
+                       Q106 96 92 96
+                       L16 96
+                       Q4 96 4 84
+                       L4 16
+                       Q4 4 16 4 Z" fill="#6F2C8E"/>
+              <text x="78" y="74" font-family="'Nunito', 'Helvetica Neue', Arial, sans-serif" font-size="58" font-weight="900" text-anchor="middle" fill="#FFFFFF" letter-spacing="-3">ndis</text>
+              <!-- green dot above the i -->
+              <circle cx="91" cy="26" r="6.5" fill="#9CCB3B"/>
+            </svg>
+          </div>
           <h3>NDIS Funding</h3>
           <p>Self-managed, plan-managed, or agency-managed — we work with all NDIS plan types. We can provide invoices, service agreements, or anything your plan manager needs.</p>
         </div>
         <div class="payment-card fade-up">
-          <div class="payment-card-icon">💳</div>
-          <h3>Private Pay</h3>
-          <p>Pay by card, bank transfer, or cash. If you're not on an NDIS plan or prefer to pay directly, just book through our booking page and pay at checkout.</p>
+          <div class="payment-card-icon" aria-hidden="true" style="display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;font-size:0;line-height:0;">
+            <!-- Mastercard -->
+            <svg width="44" height="28" viewBox="0 0 44 28" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard">
+              <circle cx="16" cy="14" r="12" fill="#EB001B"/>
+              <circle cx="28" cy="14" r="12" fill="#F79E1B"/>
+              <path d="M22 4 a12 12 0 0 1 0 20 a12 12 0 0 1 0 -20 z" fill="#FF5F00"/>
+            </svg>
+            <!-- Visa -->
+            <svg width="60" height="22" viewBox="0 0 60 22" xmlns="http://www.w3.org/2000/svg" aria-label="Visa">
+              <text x="30" y="18" font-family="'Helvetica Neue', Arial Black, Arial, sans-serif" font-size="20" font-weight="900" font-style="italic" text-anchor="middle" fill="#1A1F71" letter-spacing="-0.5">VISA</text>
+            </svg>
+            <!-- Google Pay -->
+            <svg width="62" height="24" viewBox="0 0 62 24" xmlns="http://www.w3.org/2000/svg" aria-label="Google Pay">
+              <!-- Multi-color Google G (simplified four-arc) -->
+              <path d="M11.4 11 L11.4 13.2 L14.4 13.2 C14.1 14.4 13 15.3 11.4 15.3 C9.6 15.3 8 13.7 8 12 C8 10.2 9.6 8.7 11.4 8.7 C12.2 8.7 13 9 13.6 9.5 L15.1 8 C14.1 7.1 12.8 6.5 11.4 6.5 C8.4 6.5 6 8.9 6 12 C6 15 8.4 17.5 11.4 17.5 C14.6 17.5 16.6 15.3 16.6 12.2 C16.6 11.6 16.5 11.3 16.5 11 L11.4 11 Z" fill="#4285F4"/>
+              <path d="M11.4 8.7 C12.2 8.7 13 9 13.6 9.5 L15.1 8 C14.1 7.1 12.8 6.5 11.4 6.5 L11.4 8.7 Z" fill="#EA4335"/>
+              <path d="M11.4 15.3 C13 15.3 14.1 14.4 14.4 13.2 L11.4 13.2 L11.4 15.3 Z" fill="#34A853"/>
+              <path d="M14.4 13.2 C14.5 12.9 14.6 12.5 14.6 12 L11.4 12 L11.4 13.2 L14.4 13.2 Z" fill="#FBBC04"/>
+              <text x="20" y="17" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#5F6368">Pay</text>
+            </svg>
+            <!-- Apple Pay -->
+            <svg width="62" height="24" viewBox="0 0 62 24" xmlns="http://www.w3.org/2000/svg" aria-label="Apple Pay">
+              <!-- Apple silhouette -->
+              <path d="M13.6 8.1 C13.0 8.8 12.0 9.4 11.0 9.3 C10.9 8.3 11.4 7.3 12.0 6.6 C12.6 6.0 13.7 5.5 14.5 5.5 C14.6 6.5 14.2 7.4 13.6 8.1 Z M14.5 9.5 C13.0 9.4 11.7 10.3 11.0 10.3 C10.3 10.3 9.2 9.5 8.0 9.5 C6.4 9.6 4.9 10.5 4.1 12.0 C2.5 14.8 3.7 19.0 5.3 21.3 C6.0 22.4 7.0 23.6 8.2 23.6 C9.4 23.5 9.9 22.8 11.3 22.8 C12.7 22.8 13.1 23.6 14.4 23.5 C15.7 23.5 16.5 22.4 17.3 21.3 C18.2 20.0 18.5 18.7 18.5 18.6 C18.5 18.6 16.0 17.7 16.0 14.9 C16.0 12.5 17.9 11.4 18.0 11.3 C16.9 9.7 15.2 9.5 14.5 9.5 Z" fill="#000" transform="scale(0.7) translate(2,-2)"/>
+              <text x="20" y="17" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#000">Pay</text>
+            </svg>
+          </div>
+          <h3>Credit or Debit Card</h3>
+          <p>Pay by card, bank transfer, or cash. If you're not on an NDIS plan or prefer to pay directly, just book through our booking page and pay at checkout. We accept Mastercard, Visa, Google Pay, and Apple Pay.</p>
         </div>
         <div class="payment-card fade-up">
-          <div class="payment-card-icon">🔄</div>
+          <div class="payment-card-icon" aria-hidden="true">
+            <!-- Afterpay logo: mint pill, lowercase "afterpay" wordmark -->
+            <svg width="140" height="60" viewBox="0 0 140 60" xmlns="http://www.w3.org/2000/svg">
+              <rect width="140" height="60" rx="30" fill="#B2FCE4"/>
+              <text x="70" y="40" font-family="'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="900" text-anchor="middle" fill="#0A0A0A" letter-spacing="-1.2">afterpay</text>
+            </svg>
+          </div>
           <h3>Afterpay</h3>
           <p>Split your ticket into 4 fortnightly payments at no extra cost. Select Afterpay at checkout on our booking page — it only takes a minute to set up if you're new to it.</p>
-        </div>
-        <div class="payment-card fade-up">
-          <div class="payment-card-icon">👨‍👩‍👧</div>
-          <h3>Family or Carer</h3>
-          <p>A family member or carer can purchase a ticket on your behalf. Just book through the booking page and add any access needs or support worker requirements in the notes field.</p>
         </div>
       </div>
     </div>
@@ -433,7 +539,7 @@
             <a href="https://www.instagram.com/feelgood.societyco/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </a>
-            <a href="#" class="social-btn" aria-label="TikTok">
+            <a href="https://www.tiktok.com/@feelgood.societyco" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
             </a>
             <a href="https://www.facebook.com/profile.php?id=61572367542911" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
@@ -492,7 +598,25 @@
       });
     }, { threshold: 0.12 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  </script>
+  
+    /* Mobile nav toggle */
+    (function() {
+      const btn = document.querySelector('.nav-toggle');
+      const list = document.getElementById('primary-nav');
+      if (!btn || !list) return;
+      btn.addEventListener('click', () => {
+        const open = list.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', String(open));
+      });
+      // Close menu after clicking a link
+      list.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        list.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }));
+    })();
+</script>
 
 </body>
 </html>
