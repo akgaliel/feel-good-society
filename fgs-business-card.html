@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FGS Business Card — Lamyah Galiel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,400;9..144,1,300&display=swap" rel="stylesheet">
+
+<style>
+  @page {
+    size: 90mm 54mm;
+    margin: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #0F2D5E;
+    --navy:       #1A3F7A;
+    --blue-pastel: #A8C8E8;
+    --blue-soft:  #C8DFF5;
+    --yellow:     #F2C94C;
+    --yellow-deep: #E8B830;
+    --cream:      #FFFDF5;
+    --muted:      #5B82B8;
+  }
+
+  html, body {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #D6D0C8;
+  }
+
+  /* ── Screen layout ─────────────────────────── */
+  @media screen {
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 36px 24px;
+      min-height: 100vh;
+    }
+
+    .card-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888;
+      align-self: flex-start;
+      margin-left: calc(50% - 135px);
+    }
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .card-label { display: none; }
+    .card { page-break-after: always; }
+    .card:last-of-type { page-break-after: avoid; }
+  }
+
+  /* ── Card base ─────────────────────────────── */
+  .card {
+    width: 90mm;
+    height: 54mm;
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+  }
+
+  @media screen {
+    .card {
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.08),
+        0 12px 36px rgba(0,0,0,0.18),
+        0 2px 0 rgba(255,255,255,0.5) inset;
+    }
+  }
+
+  /* ── FRONT ─────────────────────────────────── */
+  .front {
+    background: linear-gradient(145deg, #F0C130 0%, #F5D060 50%, #F8DC80 100%);
+  }
+
+  /* Pastel blue bloom */
+  .front::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 88% 12%, rgba(168,200,232,0.35) 0%, transparent 52%),
+      radial-gradient(circle at 10% 90%, rgba(168,200,232,0.2) 0%, transparent 48%);
+    pointer-events: none;
+  }
+
+  /* Pastel blue accent bar on left edge */
+  .front::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #A8C8E8, rgba(168,200,232,0.4));
+  }
+
+  .front-inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 6mm 8mm 7mm 10.5mm;
+  }
+
+  .front-top {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .front-bottom {}
+
+  .front-name {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    line-height: 1.0;
+    color: #0F2D5E;
+    margin-bottom: 4px;
+  }
+
+  .front-divider { display: none; }
+
+  .front-role {
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(15,45,94,0.6);
+  }
+
+  /* Decorative circle — bottom right */
+  .front-deco {
+    position: absolute;
+    bottom: -14mm;
+    right: -10mm;
+    width: 38mm;
+    height: 38mm;
+    border-radius: 50%;
+    border: 1.5px solid rgba(168,200,232,0.4);
+    pointer-events: none;
+  }
+  .front-deco-2 {
+    position: absolute;
+    bottom: -10mm;
+    right: -6mm;
+    width: 26mm;
+    height: 26mm;
+    border-radius: 50%;
+    border: 1px solid rgba(15,45,94,0.15);
+    pointer-events: none;
+  }
+
+  /* Tiny dot grid — top right corner */
+  .front-dots {
+    position: absolute;
+    top: 7mm;
+    right: 8mm;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3.5px;
+    opacity: 0.4;
+  }
+  .front-dots span {
+    width: 2.5px;
+    height: 2.5px;
+    border-radius: 50%;
+    background: #A8C8E8;
+    display: block;
+  }
+
+  /* ── BACK ──────────────────────────────────── */
+  .back {
+    background: #FBFCFF;
+  }
+
+  /* Yellow/blue top bar */
+  .back::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #F2C94C, #A8C8E8, #F2C94C);
+    z-index: 3;
+  }
+
+  /* Faint blue circle — decorative */
+  .back::after {
+    content: '';
+    position: absolute;
+    bottom: -16mm;
+    right: -10mm;
+    width: 40mm;
+    height: 40mm;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(15,45,94,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .back-inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    padding: 5mm 4mm 9mm 4mm;  /* extra bottom padding for tagline */
+    gap: 2mm;
+    align-items: center;
+  }
+
+  /* Left column: logo */
+  .back-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 40mm;
+  }
+
+  .back-left img {
+    width: 100%;
+    height: auto;
+    opacity: 1;
+    filter: none;
+    mix-blend-mode: multiply;
+  }
+
+  /* Vertical divider */
+  .back-divider {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(15,45,94,0.15), transparent);
+    flex-shrink: 0;
+    align-self: stretch;
+  }
+
+  /* Right column: contact */
+  .back-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0; /* prevents flex overflow */
+  }
+
+  .back-name {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: -0.01em;
+    color: #0F2D5E;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  .contact-item .ci-icon {
+    width: 13px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-item .ci-text {
+    font-size: 7px;
+    line-height: 1.3;
+    color: #1A3F7A;
+    font-weight: 500;
+    letter-spacing: 0em;
+    white-space: nowrap;
+  }
+
+  .contact-item .ci-text a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Tagline at bottom */
+  .back-tagline {
+    position: absolute;
+    bottom: 4mm;
+    left: 5mm;
+    right: 5mm;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 7.5px;
+    color: #1A3F7A;
+    letter-spacing: 0.04em;
+    opacity: 1;
+    z-index: 3;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── FRONT ───────────────────────────────── -->
+<div class="card-label">Front</div>
+<div class="card front">
+  <!-- Decorative elements -->
+  <div class="front-deco"></div>
+  <div class="front-deco-2"></div>
+  <div class="front-dots">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="front-inner">
+    <div class="front-top"></div>
+    <div class="front-bottom">
+      <p class="front-name">Lamyah Galiel</p>
+      <p class="front-role">Feel Good Society</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── BACK ────────────────────────────────── -->
+<div class="card-label">Back</div>
+<div class="card back">
+  <div class="back-inner">
+
+    <!-- Watermark logo -->
+    <div class="back-left">
+      <img src="logo-new.png" alt="" onerror="this.src='logo.png'">
+    </div>
+
+    <div class="back-divider"></div>
+
+    <!-- Contact details -->
+    <div class="back-right">
+      <p class="back-name">Lamyah Galiel</p>
+
+      <!-- Phone -->
+      <div class="contact-item">
+        <span class="ci-icon">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 2C3 1.45 3.45 1 4 1H5.5C5.78 1 6.03 1.18 6.13 1.44L7.13 3.94C7.24 4.22 7.16 4.54 6.94 4.74L5.91 5.66C6.57 7.04 7.96 8.43 9.34 9.09L10.26 8.06C10.46 7.84 10.78 7.76 11.06 7.87L13.56 8.87C13.82 8.97 14 9.22 14 9.5V11C14 11.55 13.55 12 13 12C7.48 12 3 7.52 3 2Z" fill="#E8B830"/>
+          </svg>
+        </span>
+        <span class="ci-text">0473 498 360</span>
+      </div>
+
+      <!-- Email -->
+      <div class="contact-item">
+        <span class="ci-icon">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="3" width="14" height="10" rx="2" fill="none" stroke="#A8C8E8" stroke-width="1.4"/>
+            <path d="M1 5L8 9.5L15 5" stroke="#A8C8E8" stroke-width="1.4"/>
+          </svg>
+        </span>
+        <span class="ci-text">Events@feelgoodsociety.com.au</span>
+      </div>
+
+      <!-- Instagram -->
+      <div class="contact-item">
+        <span class="ci-icon">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="14" height="14" rx="4" stroke="#E8B830" stroke-width="1.4"/>
+            <circle cx="8" cy="8" r="3" stroke="#E8B830" stroke-width="1.2"/>
+            <circle cx="12" cy="4" r="0.9" fill="#E8B830"/>
+          </svg>
+        </span>
+        <span class="ci-text">@feelgoodsocietyco</span>
+      </div>
+
+      <!-- Website -->
+      <div class="contact-item">
+        <span class="ci-icon">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="8" r="6.5" stroke="#A8C8E8" stroke-width="1.3"/>
+            <path d="M1.5 8H14.5" stroke="#A8C8E8" stroke-width="1.2"/>
+            <path d="M8 1.5C8 1.5 10.5 4.5 10.5 8C10.5 11.5 8 14.5 8 14.5" stroke="#A8C8E8" stroke-width="1.2"/>
+            <path d="M8 1.5C8 1.5 5.5 4.5 5.5 8C5.5 11.5 8 14.5 8 14.5" stroke="#A8C8E8" stroke-width="1.2"/>
+          </svg>
+        </span>
+        <span class="ci-text">feelgoodsociety.com.au</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="back-tagline">You Belong Here, Just As You Are.</p>
+</div>
+
+<style>
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: white; }
+}
+</style>
+
+</body>
+</html>

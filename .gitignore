@@ -1,1 +1,32 @@
 .vercel
+
+# OS / editor
+.DS_Store
+.~lock.*
+
+# Claude / agent work folders (NOT for deployment)
+.claude/
+CLAUDE.md
+claude-code-prompts.md
+
+# Source / draft assets (not part of the live site)
+FGS_Content_Calendar.xlsx
+FGS_Content_Strategy.docx
+Instagram Carousels/
+
+# Large video files (served via Wistia — not needed in repo)
+vsl-fgs.mov
+fgs-vid-1.mov
+fgs-vid-1.mp4
+vid-frames/
+
+# Unused assets
+190E69E2-11B2-4E3C-A997-F9CB01E9772A.png
+FGS_Event_Budget.pdf
+FGS_Event_Budget.xlsx
+FGS_Terms_Conditions_PrivacyPolicy.pdf
+Feel_Good_Society_NDIS_Flyer.pdf
+
+# Local
+node_modules/
+*.log

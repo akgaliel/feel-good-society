@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Feel Good Society — Partnership Pamphlet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@500;700&family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Page setup: A4 landscape tri-fold ---------- */
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #2C5F4F;        /* refined eucalyptus green (text + cards) */
+    --navy-soft: #6B9384;   /* soft muted green (secondary text) */
+    --cream: #FBFBF6;       /* clean soft white */
+    --cream-deep: #EAF2EA;  /* pale sage */
+    --coral: #E07A9E;       /* dusty rose pink (main accent) */
+    --coral-soft: #F7DBE5;  /* blush */
+    --sage: #8FB6A4;        /* sage mint */
+    --gold: #6CBF98;        /* soft jade accent */
+    --ink: #244A3D;         /* deep green */
+    --muted: #7C9C8E;
+  }
+
+  html, body {
+    background: #E5E1D8;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body { padding: 28px 0; }
+
+  .sheet {
+    width: 297mm;
+    height: 210mm;
+    margin: 0 auto 22px;
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+  }
+
+  .panel {
+    position: relative;
+    padding: 14mm 11mm;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* subtle fold guides for on-screen only */
+  .sheet::before, .sheet::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.12) 0 4px, transparent 4px 10px);
+    pointer-events: none;
+  }
+  .sheet::before { left: calc(100%/3); }
+  .sheet::after  { left: calc(200%/3); }
+  @media print { .sheet::before, .sheet::after { display: none; } }
+
+  /* ---------- Typography ---------- */
+  .display {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+  .script { font-family: 'Caveat', cursive; }
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--coral);
+  }
+  p { font-size: 11.5px; line-height: 1.55; color: var(--navy); }
+
+  /* ============================================
+     FRONT COVER (right-most panel of outside)
+     ============================================ */
+  .cover {
+    background: linear-gradient(155deg, #2C5F4F 0%, #4E8E74 45%, #E07A9E 100%);
+    color: var(--cream);
+    padding: 0;
+    justify-content: flex-end;
+  }
+  .cover .photo {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1529543544282-ea669407fca3?auto=format&fit=crop&w=1400&q=85');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.55;
+  }
+  .cover .scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(36,74,61,0.22) 0%, rgba(36,74,61,0.48) 45%, rgba(36,74,61,0.90) 100%);
+  }
+  .cover-content {
+    position: relative;
+    z-index: 2;
+    padding: 14mm 11mm;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cover-top { display: flex; align-items: center; gap: 8px; }
+  .cover-top img { height: 105px; width: auto; max-width: 90%; filter: drop-shadow(0 3px 12px rgba(0,0,0,0.45)); }
+  .cover h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 37px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    margin-bottom: 16px;
+  }
+  .cover h1 em { font-style: normal; color: #F8D6E2; font-weight: 700; }
+  .cover .sub {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: rgba(251,246,236,0.9);
+    max-width: 78mm;
+    padding-top: 14px;
+    border-top: 1px solid rgba(251,246,236,0.3);
+  }
+  .cover .tag {
+    position: absolute;
+    top: 14mm; right: 11mm;
+    z-index: 3;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: rgba(229,106,74,0.85);
+    padding: 5px 10px;
+    border-radius: 99px;
+    font-weight: 600;
+  }
+
+  /* ============================================
+     BACK COVER (middle panel of outside)
+     ============================================ */
+  .back {
+    background: var(--cream);
+    justify-content: space-between;
+  }
+  .back .logo-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .back .logo-row img { height: 30px; }
+  .back .logo-row span {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 12px;
+    letter-spacing: 0.03em;
+  }
+  .back h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1.1;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+  .back h2 em { color: var(--coral); font-style: normal; }
+  .back .close {
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: var(--navy-soft);
+    margin: 14px 0 18px;
+  }
+  .contact-card {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 14px 14px 16px;
+    border-radius: 4px;
+    position: relative;
+  }
+  .contact-head {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 12px;
+  }
+  .contact-head .founder {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 2px solid rgba(247,219,229,0.6);
+    flex-shrink: 0;
+  }
+  .contact-card .label {
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--coral-soft);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .contact-card .name {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .contact-card ul { list-style: none; }
+  .contact-card li {
+    font-size: 11.5px;
+    line-height: 1.75;
+    color: var(--cream);
+    display: flex;
+    gap: 8px;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(251,246,236,0.12);
+  }
+  .contact-card li:last-child { border-bottom: none; }
+  .contact-card li .ic {
+    width: 24px;
+    flex-shrink: 0;
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: center;
+  }
+  .back-foot {
+    font-family: 'Caveat', cursive;
+    font-size: 19px;
+    color: var(--coral);
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--cream-deep);
+  }
+  .mid-block {
+    padding: 12px 0;
+    border-top: 1px solid var(--cream-deep);
+    border-bottom: 1px solid var(--cream-deep);
+  }
+  .mid-block .eyebrow { margin-bottom: 6px; }
+  .mid-block h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 1.1;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    margin-bottom: 7px;
+  }
+  .mid-block h3 em { color: var(--coral); font-style: normal; }
+  .mid-block p {
+    font-size: 10.5px;
+    line-height: 1.5;
+    color: var(--navy-soft);
+  }
+  .mission-strip {
+    margin-top: 14px;
+    padding: 10px 0 0;
+    border-top: 1px solid var(--cream-deep);
+  }
+  .mission-strip .label {
+    font-size: 8.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--coral);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .mission-strip .vision {
+    font-family: 'Quicksand', sans-serif;
+    font-style: italic;
+    font-size: 11px;
+    line-height: 1.35;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .mission-strip .pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .mission-strip .pills span {
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--cream-deep);
+    padding: 4px 9px;
+    border-radius: 99px;
+  }
+
+  /* ============================================
+     INSIDE FLAP / VISION (left panel of outside)
+     ============================================ */
+  .flap {
+    background: var(--cream-deep);
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .flap .top-photo {
+    height: 78mm;
+    background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=85');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  .flap .top-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(31,74,58,0.0) 50%, rgba(31,74,58,0.35) 100%);
+  }
+  .flap .content { padding: 11mm; flex: 1; display: flex; flex-direction: column; }
+  .flap .eyebrow { margin-bottom: 8px; }
+  .flap h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1.1;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+  .flap h3 em { color: var(--coral); font-style: normal; }
+  .flap .included {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 4px;
+  }
+  .flap .included .item {
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+    padding: 11px 0;
+    border-top: 1px solid rgba(31,74,58,0.12);
+  }
+  .flap .included .item:first-child { border-top: none; padding-top: 4px; }
+  .flap .included .item .emoji {
+    font-size: 26px;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
+  }
+  .flap .included .item .body strong {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    display: block;
+    margin-bottom: 3px;
+    letter-spacing: -0.005em;
+  }
+  .flap .included .item .body p {
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--navy-soft);
+  }
+  .flap-note {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(31,74,58,0.14);
+    font-family: 'Caveat', cursive;
+    font-size: 18px;
+    line-height: 1.3;
+    color: var(--coral);
+  }
+
+  /* ============================================
+     INSIDE LEFT — WHO WE SERVE
+     ============================================ */
+  .who { background: var(--cream); padding: 13mm 11mm; }
+  .who .eyebrow { margin-bottom: 8px; }
+  .who h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.1;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  .who h2 em { color: var(--coral); font-style: italic; }
+  .who .lead {
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: var(--navy-soft);
+    margin-bottom: 12px;
+  }
+  .who .photo-strip {
+    height: 32mm;
+    background-image: url('https://images.unsplash.com/photo-1529543544282-ea669407fca3?auto=format&fit=crop&w=1200&q=85');
+    background-size: cover;
+    background-position: center;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .who .photo-strip::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(27,42,65,0.15), transparent);
+    border-radius: 3px;
+  }
+  .who ul.tags {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .who ul.tags li {
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--navy);
+    padding-left: 18px;
+    position: relative;
+  }
+  .who ul.tags li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 6px;
+    width: 10px; height: 2px;
+    background: var(--coral);
+    border-radius: 99px;
+  }
+  .who ul.tags li strong { font-weight: 600; color: var(--navy); }
+  .who .promise {
+    margin-top: 12px;
+    padding: 11px 13px;
+    background: var(--coral-soft);
+    border-left: 3px solid var(--coral);
+    border-radius: 2px;
+    font-family: 'Quicksand', sans-serif;
+    font-style: italic;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: var(--navy);
+  }
+
+  /* ============================================
+     INSIDE MIDDLE — COMMUNITY HERO (centerpiece)
+     ============================================ */
+  .hero {
+    background: linear-gradient(165deg, #E56A4A 0%, #D45438 100%);
+    color: var(--cream);
+    padding: 0;
+    overflow: hidden;
+  }
+  .hero .photo {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1496337589254-7e19d01cec44?auto=format&fit=crop&w=1400&q=85');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.25;
+    mix-blend-mode: luminosity;
+  }
+  .hero .glow {
+    position: absolute;
+    top: -40mm; left: -40mm;
+    width: 120mm; height: 120mm;
+    background: radial-gradient(circle, rgba(255,220,180,0.4) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 14mm 11mm;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .hero .eyebrow {
+    color: rgba(255,232,214,0.95);
+    margin-bottom: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero .eyebrow::after {
+    content: "";
+    width: 26px;
+    height: 1.5px;
+    background: rgba(255,232,214,0.6);
+  }
+  .hero h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 37px;
+    line-height: 1.0;
+    color: var(--cream);
+    letter-spacing: -0.025em;
+    margin-bottom: 0;
+  }
+  .hero h2 em {
+    font-style: italic;
+    font-weight: 400;
+    color: #FFE8D6;
+  }
+  .hero-rule {
+    width: 48px;
+    height: 3px;
+    background: #FFE8D6;
+    border-radius: 99px;
+    margin: 12px 0 14px;
+  }
+  .hero .lede {
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: rgba(251,246,236,0.95);
+    margin-bottom: 12px;
+    max-width: 78mm;
+  }
+  .hero .stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 10px 0;
+    margin-bottom: 12px;
+    border-top: 1px solid rgba(251,246,236,0.25);
+    border-bottom: 1px solid rgba(251,246,236,0.25);
+  }
+  .hero .stats .stat .n {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1;
+    color: #FFE8D6;
+    margin-bottom: 3px;
+  }
+  .hero .stats .stat .l {
+    font-size: 8.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(251,246,236,0.85);
+    line-height: 1.25;
+  }
+  .hero blockquote {
+    font-family: 'Quicksand', sans-serif;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.35;
+    color: var(--cream);
+    padding: 10px 0 10px 14px;
+    border-left: 2px solid rgba(251,246,236,0.5);
+    margin: 4px 0 14px;
+  }
+  .hero blockquote cite {
+    display: block;
+    font-style: normal;
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-top: 6px;
+    color: rgba(251,246,236,0.7);
+  }
+  .hero .grid-benefits {
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(251,246,236,0.25);
+  }
+  .hero .grid-benefits .b strong {
+    display: block;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 3px;
+  }
+  .hero .grid-benefits .b span {
+    font-size: 9.8px;
+    line-height: 1.4;
+    color: rgba(251,246,236,0.88);
+  }
+  .hero .closer {
+    margin-top: 12px;
+    padding: 9px 12px;
+    background: rgba(27,42,65,0.35);
+    border-radius: 3px;
+    font-family: 'Quicksand', sans-serif;
+    font-style: italic;
+    font-size: 11.5px;
+    line-height: 1.35;
+    color: #FFE8D6;
+    text-align: center;
+  }
+
+  /* ============================================
+     INSIDE RIGHT — HOW IT WORKS
+     ============================================ */
+  .how { background: var(--cream); padding: 13mm 11mm; }
+  .how .eyebrow { margin-bottom: 8px; }
+  .how h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.1;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .how h2 em { color: var(--coral); font-style: italic; }
+  .how .sub {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    position: relative;
+  }
+  .step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 15px; top: 40px; bottom: -4px;
+    width: 1px;
+    background: repeating-linear-gradient(to bottom, var(--coral) 0 3px, transparent 3px 7px);
+    opacity: 0.5;
+  }
+  .step .num {
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step .copy { flex: 1; padding-top: 2px; }
+  .step .copy strong {
+    display: block;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .step .copy p {
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--navy-soft);
+  }
+
+  .values-card {
+    margin-top: 14px;
+    padding: 12px;
+    background: var(--navy);
+    border-radius: 3px;
+    color: var(--cream);
+  }
+  .values-card .label {
+    font-size: 8.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--coral-soft);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .values-card .vals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+  }
+  .values-card .vals span {
+    font-family: 'Quicksand', sans-serif;
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--cream);
+  }
+  .values-card .vals span + span::before {
+    content: "·";
+    margin-right: 8px;
+    color: var(--coral);
+  }
+
+  /* ---------- Print ---------- */
+  @media print {
+    body { background: white; padding: 0; }
+    .sheet {
+      margin: 0;
+      box-shadow: none;
+      page-break-after: always;
+    }
+    .sheet:last-child { page-break-after: auto; }
+  }
+
+  /* ---------- Screen helper label (won't print) ---------- */
+  .sheet-label {
+    position: absolute;
+    top: -22px;
+    left: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #6B6B72;
+  }
+  @media print { .sheet-label { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SHEET 1 — OUTSIDE
+     Left = Inside flap (Vision / Mission)
+     Middle = Back cover (Contact)
+     Right = Front cover
+     ============================================================ -->
+<div class="sheet" style="margin-top:30px;">
+  <div class="sheet-label">Outside</div>
+
+  <!-- LEFT: INSIDE FLAP / WHAT'S INCLUDED -->
+  <div class="panel flap">
+    <div class="top-photo"></div>
+    <div class="content">
+      <div class="eyebrow">What's Included</div>
+      <h3>Everything <em>sorted</em> for you.</h3>
+      <div class="included">
+        <div class="item">
+          <div class="emoji">🍽️</div>
+          <div class="body">
+            <strong>Delicious Full Meal</strong>
+            <p>A proper sit-down dinner. Good food, good vibes.</p>
+          </div>
+        </div>
+        <div class="item">
+          <div class="emoji">🎵</div>
+          <div class="body">
+            <strong>Live Entertainment</strong>
+            <p>Music and performances that get the energy going.</p>
+          </div>
+        </div>
+        <div class="item">
+          <div class="emoji">🎲</div>
+          <div class="body">
+            <strong>Games &amp; Activities</strong>
+            <p>Fun activities that make talking to new people easy.</p>
+          </div>
+        </div>
+        <div class="item">
+          <div class="emoji">💜</div>
+          <div class="body">
+            <strong>A Community That Gets It</strong>
+            <p>People who just get it. No explaining needed.</p>
+          </div>
+        </div>
+      </div>
+      <p class="flap-note">We build monthly events for the humans who rarely get a night designed entirely around them — and the people who quietly hold them up.</p>
+    </div>
+  </div>
+
+  <!-- MIDDLE: BACK COVER -->
+  <div class="panel back">
+    <div>
+      <div class="eyebrow">Let's Collaborate</div>
+      <h2>Become a <em>Community Hero.</em></h2>
+      <p class="close">Your venue stops being just a business and becomes a place that changed lives. The cafe people drive across town for. The restaurant families thank you for. The space where someone finally felt seen.</p>
+      <div class="back-foot">You belong here — just as you are.</div>
+    </div>
+
+    <div class="mid-block">
+      <div class="eyebrow">The Difference You Make</div>
+      <h3>More than a <em>booking.</em></h3>
+      <p>When you open your doors to us, you're not just filling tables — you're giving people who've felt invisible a place to belong. That's a story your venue gets to be part of.</p>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-head">
+        <img class="founder" src="founder.png" alt="Lamyah Galiel">
+        <div>
+          <div class="label">Join the Feel Good Society family</div>
+          <div class="name">Lamyah Galiel</div>
+        </div>
+      </div>
+      <ul>
+        <li><span class="ic">&#9742;</span><span>0473 498 360</span></li>
+        <li><span class="ic">&#127760;</span><span>www.feelgoodsociety.com.au</span></li>
+        <li><span class="ic">&#128247;</span><span>@feelgoodsocietyco</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RIGHT: FRONT COVER -->
+  <div class="panel cover">
+    <div class="photo"></div>
+    <div class="scrim"></div>
+    <div class="cover-content">
+      <div class="cover-top">
+        <img src="logo-white.png" alt="Feel Good Society logo">
+      </div>
+      <div>
+        <h1>For everyone who's ever felt left out, looked over, or <em>forgotten</em> — this one's for you.</h1>
+        <p class="sub">An invitation to cafes, restaurants and venues who believe community should have a seat at the table.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
